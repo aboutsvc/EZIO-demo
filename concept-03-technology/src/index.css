@@ -141,6 +141,22 @@
       0 6px 22px -14px rgba(56, 189, 248, 0.28);
   }
 
+  /* 씬 아트워크 정합 베일 — 공용 일러스트를 페이지 네이비 팔레트에 붙인다 */
+  .scene-veil {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 18, 32, 0.38) 0%,
+        rgba(10, 18, 32, 0.04) 40%,
+        rgba(10, 18, 32, 0.4) 100%
+      ),
+      radial-gradient(
+        122% 88% at 50% 44%,
+        transparent 34%,
+        rgba(4, 7, 13, 0.6) 100%
+      );
+  }
+
   .hairline-t {
     border-top: 1px solid var(--color-line);
   }

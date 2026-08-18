@@ -1,6 +1,6 @@
-import IndustrialVisual from "../components/IndustrialVisual";
 import Reveal from "../components/Reveal";
-import { Container, Section, SectionHeader, StatusLed } from "../components/ui";
+import { HmiScreen } from "../components/scenes";
+import { Container, SceneFrame, Section, SectionHeader, StatusLed } from "../components/ui";
 import { useLanguage } from "../context/LanguageContext";
 import { featuredProject, projectCustomerName } from "../data/content";
 import { ui } from "../data/ui";
@@ -57,10 +57,10 @@ export default function FeaturedProject() {
                   ))}
                 </dl>
 
-                {/* 실제 현장 사진으로 교체 예정 */}
-                <div className="mt-6 overflow-hidden border border-[var(--color-line)]">
-                  <IndustrialVisual variant="hmi" className="h-[170px] w-full" />
-                </div>
+                {/* 씬 아트워크 — 실제 현장 사진 수령 시 동일 위치 교체 */}
+                <SceneFrame className="mt-6 h-[190px] w-full sm:h-[210px]">
+                  <HmiScreen tone="navy" />
+                </SceneFrame>
               </div>
 
               {/* right: summary + scope */}

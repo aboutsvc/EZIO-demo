@@ -164,8 +164,8 @@ export const ui = {
       messageTitle: { ko: "대표 메시지", en: "Message" } as I18n,
       ceoLabel: { ko: "대표이사", en: "CEO" } as I18n,
       placeholderNote: {
-        ko: "데모 표기 — 실제 자료 수령 후 교체 예정",
-        en: "Demo placeholder — to be replaced with official material",
+        ko: "데모 표기 — 실제 자료 수령 후 갱신됩니다",
+        en: "Demo copy — pending official material",
       } as I18n,
     },
     contact: {

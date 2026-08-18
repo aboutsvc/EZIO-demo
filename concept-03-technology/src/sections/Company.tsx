@@ -1,6 +1,6 @@
-import IndustrialVisual from "../components/IndustrialVisual";
 import Reveal from "../components/Reveal";
-import { Container, DemoBadge, Section, SectionHeader, StatusLed } from "../components/ui";
+import { PlantAerial } from "../components/scenes";
+import { Container, DemoBadge, SceneFrame, Section, SectionHeader, StatusLed } from "../components/ui";
 import { useLanguage } from "../context/LanguageContext";
 import { company } from "../data/content";
 import { ui } from "../data/ui";
@@ -118,10 +118,14 @@ export default function Company() {
                   </p>
                 )}
               </div>
-              {/* 실제 현장 사진으로 교체 예정 */}
-              <div className="border-t border-[var(--color-line)]">
-                <IndustrialVisual variant="plant" className="h-[190px] w-full sm:h-[220px]" />
-              </div>
+              {/* 씬 아트워크 — 실제 현장 사진 수령 시 동일 위치 교체 */}
+              <SceneFrame
+                corners={false}
+                ring={false}
+                className="h-[220px] w-full border-t border-[var(--color-line)] sm:h-[260px]"
+              >
+                <PlantAerial tone="navy" className="opacity-[0.6]" />
+              </SceneFrame>
             </div>
           </Reveal>
         </div>

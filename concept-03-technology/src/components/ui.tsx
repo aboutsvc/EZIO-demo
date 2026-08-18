@@ -67,6 +67,48 @@ function Corner({ className }: { className: string }) {
   );
 }
 
+/**
+ * SceneFrame — 공용 씬 아트워크(src/components/scenes) 컨테이너.
+ * 씬 SVG는 부모 박스를 100% 채우고 `xMidYMid slice`로 크롭되므로
+ * 반드시 높이(또는 aspect)가 정해진 overflow-hidden 박스가 필요하다.
+ * 그 위에 네이비 베일 + 라인/코너 마커를 얹어 콘셉트의 패널 프레임 언어에 맞춘다.
+ * ※ 실제 현장 사진 수령 시 children 자리를 <img>/<picture>로 교체하면 된다.
+ */
+export function SceneFrame({
+  children,
+  className = "",
+  corners = true,
+  ring = true,
+  veil = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  corners?: boolean;
+  ring?: boolean;
+  veil?: boolean;
+}) {
+  return (
+    <div
+      className={`relative overflow-hidden bg-[var(--color-navy-900)] ${className}`}
+      aria-hidden="true"
+    >
+      {children}
+      {veil && <span className="scene-veil pointer-events-none absolute inset-0" />}
+      {ring && (
+        <span className="pointer-events-none absolute inset-0 border border-[var(--color-line)]" />
+      )}
+      {corners && (
+        <>
+          <Corner className="left-0 top-0 border-l border-t" />
+          <Corner className="right-0 top-0 border-r border-t" />
+          <Corner className="bottom-0 left-0 border-b border-l" />
+          <Corner className="bottom-0 right-0 border-b border-r" />
+        </>
+      )}
+    </div>
+  );
+}
+
 /** 섹션 헤더 — mono eyebrow + 인덱스 태그 */
 export function SectionHeader({
   index,

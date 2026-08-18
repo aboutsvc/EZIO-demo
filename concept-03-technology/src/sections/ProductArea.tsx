@@ -1,6 +1,6 @@
-import IndustrialVisual from "../components/IndustrialVisual";
 import Reveal from "../components/Reveal";
-import { Container, DemoBadge, Section, SectionHeader, StatusLed } from "../components/ui";
+import { RelayPanel } from "../components/scenes";
+import { Container, DemoBadge, SceneFrame, Section, SectionHeader, StatusLed } from "../components/ui";
 import { useLanguage } from "../context/LanguageContext";
 import { lsElectricArea, productCategories, productCtas } from "../data/content";
 import { ui } from "../data/ui";
@@ -43,10 +43,10 @@ export default function ProductArea() {
               </ul>
             </div>
             <div className="lg:col-span-5">
-              {/* 실제 현장 사진으로 교체 예정 */}
-              <div className="h-full min-h-[220px] overflow-hidden border border-[var(--color-line)]">
-                <IndustrialVisual variant="switchgear" className="h-[240px] w-full lg:h-full" />
-              </div>
+              {/* 씬 아트워크 — 실제 현장 사진 수령 시 동일 위치 교체 */}
+              <SceneFrame className="h-[260px] w-full sm:h-[300px] lg:h-full lg:min-h-[300px]">
+                <RelayPanel tone="navy" />
+              </SceneFrame>
             </div>
           </div>
         </Reveal>

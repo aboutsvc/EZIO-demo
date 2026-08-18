@@ -1,5 +1,6 @@
 import Reveal from "../components/Reveal";
-import { Container, Section, SectionHeader, StatusLed } from "../components/ui";
+import { RefineryDusk } from "../components/scenes";
+import { Container, SceneFrame, Section, SectionHeader, StatusLed } from "../components/ui";
 import { useLanguage } from "../context/LanguageContext";
 import { industries } from "../data/content";
 import { ui } from "../data/ui";
@@ -59,7 +60,14 @@ export default function Industries() {
           <SectionHeader index={s.index} eyebrow={s.eyebrow} title={t(s.title)} desc={t(s.desc)} />
         </Reveal>
 
-        <div className="mt-12 grid gap-px border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-2 lg:grid-cols-4">
+        {/* 씬 아트워크 — 실제 현장 사진 수령 시 동일 위치 교체 */}
+        <Reveal className="mt-10" delay={60}>
+          <SceneFrame className="h-[220px] w-full sm:h-[280px]">
+            <RefineryDusk tone="navy" className="opacity-[0.8]" />
+          </SceneFrame>
+        </Reveal>
+
+        <div className="mt-6 grid gap-px border border-[var(--color-line)] bg-[var(--color-line)] sm:grid-cols-2 lg:grid-cols-4">
           {industries.map((ind, i) => (
             <Reveal key={ind.id} delay={i * 80}>
               <article className="group relative h-full overflow-hidden bg-[var(--color-navy-900)] p-6 transition-colors duration-300 hover:bg-[var(--color-navy-800)] sm:p-7">

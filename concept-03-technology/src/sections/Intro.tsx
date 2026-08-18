@@ -1,6 +1,6 @@
-import IndustrialVisual from "../components/IndustrialVisual";
 import Reveal from "../components/Reveal";
-import { Container, Panel, Section, StatusLed } from "../components/ui";
+import { ControlRoom } from "../components/scenes";
+import { Container, Panel, Section, SceneFrame, StatusLed } from "../components/ui";
 import { useLanguage } from "../context/LanguageContext";
 import { intro, positioning } from "../data/content";
 import { ui } from "../data/ui";
@@ -42,12 +42,18 @@ export default function Intro() {
               <div className="tag-mono flex items-center justify-between border-b border-[var(--color-line)] px-4 py-2.5 text-[0.625rem] text-[var(--color-ink-faint)]">
                 <span className="flex items-center gap-2">
                   <StatusLed tone="ok" />
-                  NETWORK TOPOLOGY
+                  CENTRAL CONTROL
                 </span>
-                <span>SCHEMATIC</span>
+                <span>OPERATIONS</span>
               </div>
-              {/* 실제 현장 사진으로 교체 예정 */}
-              <IndustrialVisual variant="network" className="h-[300px] w-full lg:h-[calc(100%-42px)]" />
+              {/* 씬 아트워크 — 실제 현장 사진 수령 시 동일 위치 교체 */}
+              <SceneFrame
+                corners={false}
+                ring={false}
+                className="h-[300px] w-full lg:h-[calc(100%-42px)]"
+              >
+                <ControlRoom tone="navy" />
+              </SceneFrame>
             </div>
           </Reveal>
         </div>
