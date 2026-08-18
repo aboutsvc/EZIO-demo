@@ -1,0 +1,50 @@
+name: Deploy demo sites to GitHub Pages
+
+on:
+  push:
+    branches: [main, claude/ezio-corporate-website-concepts-1bpcgq]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build all concepts
+        run: |
+          mkdir -p _site
+          cp deploy/index.html _site/index.html
+          for c in concept-01-industrial concept-02-corporate concept-03-technology concept-04-minimal; do
+            echo "=== Building $c ==="
+            (cd "$c" && yarn install --frozen-lockfile --non-interactive && yarn build)
+            mkdir -p "_site/$c"
+            cp -r "$c/dist/." "_site/$c/"
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

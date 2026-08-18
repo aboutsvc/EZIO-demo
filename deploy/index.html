@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EZIO — Website Design Concepts</title>
+<meta name="description" content="주식회사 이지오 기업 웹사이트 4개 디자인 콘셉트 데모" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  :root{
+    --bg:#0b0d10; --surface:#12151a; --line:#242a31;
+    --text:#e8eaed; --muted:#8b9198; --accent:#f26b1d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,"Segoe UI","Noto Sans KR",sans-serif;
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px; width:100%}
+  header{padding:72px 0 48px; border-bottom:1px solid var(--line)}
+  .brand{font-size:13px; letter-spacing:.35em; color:var(--accent); font-weight:700; margin-bottom:20px}
+  h1{font-size:clamp(28px,5vw,44px); font-weight:800; letter-spacing:-.02em; line-height:1.15}
+  .sub{margin-top:16px; color:var(--muted); font-size:15px; line-height:1.7; max-width:640px}
+  main{flex:1; padding:56px 0 40px}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  a.card{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--surface); border:1px solid var(--line); padding:32px 28px;
+    transition:border-color .2s, transform .2s;
+  }
+  a.card:hover{border-color:var(--accent); transform:translateY(-2px)}
+  .num{font-family:ui-monospace,"SF Mono",Consolas,monospace; font-size:12px; color:var(--muted); letter-spacing:.2em}
+  .card h2{font-size:22px; font-weight:700; margin:10px 0 6px}
+  .card .theme{font-size:13px; color:var(--accent); margin-bottom:14px}
+  .card p{font-size:14px; color:var(--muted); line-height:1.65}
+  .swatches{display:flex; gap:6px; margin-top:18px}
+  .swatches span{width:22px; height:10px; display:block}
+  footer{border-top:1px solid var(--line); padding:28px 0; color:var(--muted); font-size:12.5px; line-height:1.7}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">EZIO · DESIGN CONCEPTS</div>
+      <h1>주식회사 이지오<br/>Corporate Website — 4 Design Concepts</h1>
+      <p class="sub">산업용 전력·자동화 솔루션 기업 이지오의 새로운 웹사이트를 위한 4가지 디자인 방향 데모입니다. 동일한 회사·콘텐츠를 사용하되, 레이아웃·타이포그래피·비주얼 언어·인터랙션을 서로 다르게 설계했습니다.</p>
+    </div>
+  </header>
+  <main>
+    <div class="wrap grid">
+      <a class="card" href="./concept-01-industrial/">
+        <div class="num">CONCEPT 01</div>
+        <h2>Industrial</h2>
+        <div class="theme">Heavy Industrial / Plant Engineering</div>
+        <p>다크 차콜 배경, 엔지니어링 그리드와 도면 감성, 인더스트리얼 오렌지 악센트. 대형 플랜트 엔지니어링 기업의 무게감을 전달하는 가장 강한 콘셉트.</p>
+        <div class="swatches"><span style="background:#0C0E10;border:1px solid #333"></span><span style="background:#F26B1D"></span><span style="background:#2A2F34"></span></div>
+      </a>
+      <a class="card" href="./concept-02-corporate/">
+        <div class="num">CONCEPT 02</div>
+        <h2>Corporate</h2>
+        <div class="theme">Trust / Enterprise / Professional</div>
+        <p>밝은 배경, 딥 블루 악센트, 정돈된 그리드와 넉넉한 여백. 대기업 벤더 심사에 그대로 제출할 수 있는 가장 보수적이고 안전한 콘셉트.</p>
+        <div class="swatches"><span style="background:#FFFFFF;border:1px solid #ccc"></span><span style="background:#0A3D91"></span><span style="background:#0E1B33"></span></div>
+      </a>
+      <a class="card" href="./concept-03-technology/">
+        <div class="num">CONCEPT 03</div>
+        <h2>Technology</h2>
+        <div class="theme">Smart Power / Digital Infrastructure</div>
+        <p>딥 네이비 배경 위 SCADA 감성의 데이터 플로우 애니메이션과 모니터링 대시보드 목업. 전력 인프라의 디지털 연결성을 보여주는 콘셉트.</p>
+        <div class="swatches"><span style="background:#0A1220;border:1px solid #223"></span><span style="background:#2DD4BF"></span><span style="background:#F59E0B"></span></div>
+      </a>
+      <a class="card" href="./concept-04-minimal/">
+        <div class="num">CONCEPT 04</div>
+        <h2>Minimal</h2>
+        <div class="theme">Premium Industrial Minimalism</div>
+        <p>초대형 타이포그래피와 여백, 웜 뉴트럴 톤. 유럽 엔지니어링 브랜드처럼 설명을 줄이고 브랜드 인식을 극대화하는 에디토리얼 콘셉트.</p>
+        <div class="swatches"><span style="background:#FAF8F5;border:1px solid #ccc"></span><span style="background:#141414"></span><span style="background:#1A3C34"></span></div>
+      </a>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      본 페이지와 4개 콘셉트는 디자인 데모입니다. 일부 콘텐츠는 데모용 표기이며, 실제 회사 자료 수령 후 교체됩니다.<br/>
+      © 2026 EZIO Design Concepts Demo
+    </div>
+  </footer>
+</body>
+</html>
