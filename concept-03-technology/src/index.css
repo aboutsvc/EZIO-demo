@@ -1,0 +1,385 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+ * CONCEPT 03 — TECHNOLOGY
+ * Smart Power / Digital Infrastructure
+ * Deep navy + electric cyan, SCADA-inspired UI language.
+ * ────────────────────────────────────────────── */
+
+@theme {
+  /* Surfaces */
+  --color-navy-900: #0a1220;
+  --color-navy-800: #0e1830;
+  --color-navy-700: #111c33;
+  --color-navy-600: #16233d;
+  --color-navy-500: #1c2c4a;
+
+  /* Text */
+  --color-ink: #dce4f2;
+  --color-ink-dim: #7c8ca8;
+  --color-ink-faint: #4d5b75;
+
+  /* Accents */
+  --color-cyan-data: #38bdf8;
+  --color-teal-data: #2dd4bf;
+  --color-amber-alarm: #f59e0b;
+  --color-led-ok: #2dd4bf;
+
+  /* Lines */
+  --color-line: #1e2b45;
+  --color-line-soft: #172339;
+
+  /* Type */
+  --font-sans:
+    "Pretendard Variable", "Pretendard", "Manrope", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", Roboto, Helvetica, Arial, sans-serif;
+  --font-display:
+    "Manrope", "Pretendard Variable", "Pretendard", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono:
+    "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono",
+    Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    background-color: var(--color-navy-900);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-navy-900);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-cyan-data) 30%, transparent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-cyan-data);
+    outline-offset: 2px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Small uppercase mono label — SCADA tag style */
+  .tag-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Subtle dot-grid section background */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(124, 140, 168, 0.16) 1px,
+      transparent 0
+    );
+    background-size: 28px 28px;
+  }
+  .dot-grid-tight {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(124, 140, 168, 0.13) 1px,
+      transparent 0
+    );
+    background-size: 18px 18px;
+  }
+
+  /* Thin engineering grid */
+  .line-grid {
+    background-image:
+      linear-gradient(to right, rgba(30, 43, 69, 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 43, 69, 0.55) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Panel frame — SCADA enclosure look */
+  .panel {
+    background: linear-gradient(
+      180deg,
+      rgba(17, 28, 51, 0.9) 0%,
+      rgba(10, 18, 32, 0.9) 100%
+    );
+    border: 1px solid var(--color-line);
+  }
+
+  .panel-glow {
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.14),
+      0 6px 22px -14px rgba(56, 189, 248, 0.28);
+  }
+
+  .hairline-t {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ──────────────────────────────────────────────
+ * ANIMATION — all slow, low opacity, subtle.
+ * ────────────────────────────────────────────── */
+
+/* Data packet traveling along an SVG path (stroke-dashoffset technique).
+   The stroke uses a short dash + long gap; shifting the offset by the full
+   pattern length walks that dash from the start of the line to past its end. */
+@keyframes packet-run {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: var(--packet-travel, -400);
+  }
+}
+
+/* Constant slow flow pulse on connection lines */
+@keyframes flow-dash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+@keyframes led-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes sweep-x {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+/* Packet dot traveling along a horizontal HTML "bus" line */
+@keyframes bus-run {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes trend-draw {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes gauge-fill {
+  from {
+    stroke-dashoffset: var(--gauge-empty, 300);
+  }
+  to {
+    stroke-dashoffset: var(--gauge-target, 120);
+  }
+}
+
+/* Packet dot traveling down a vertical HTML rail */
+@keyframes vbus-run {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  92% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Slow scan line across the trend chart */
+@keyframes scan-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--scan-w, 440px));
+  }
+}
+
+@keyframes node-ping {
+  0% {
+    r: 4;
+    opacity: 0.5;
+  }
+  70% {
+    r: 13;
+    opacity: 0;
+  }
+  100% {
+    r: 13;
+    opacity: 0;
+  }
+}
+
+.anim-flow {
+  stroke-dasharray: 4 12;
+  animation: flow-dash 3.2s linear infinite;
+}
+
+.anim-packet {
+  animation: packet-run var(--packet-dur, 7s) linear infinite;
+  animation-delay: var(--packet-delay, 0s);
+}
+
+.anim-led {
+  animation: led-breathe 3.4s ease-in-out infinite;
+}
+
+.anim-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56, 189, 248, 0.07),
+    transparent
+  );
+  animation: sweep-x 9s linear infinite;
+  pointer-events: none;
+}
+
+.anim-trend {
+  stroke-dasharray: 1200;
+  animation: trend-draw 4.5s ease-out forwards;
+}
+
+.anim-gauge {
+  animation: gauge-fill 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-ping {
+  animation: node-ping 3.6s ease-out infinite;
+}
+
+.anim-bus {
+  animation: bus-run 7s linear infinite;
+  animation-delay: var(--bus-delay, 0s);
+}
+
+.anim-scan {
+  animation: scan-x 14s linear infinite;
+}
+
+.anim-vbus {
+  animation: vbus-run 9s linear infinite;
+  animation-delay: var(--bus-delay, 0s);
+}
+
+/* Scroll reveal — driven by IntersectionObserver adding .is-visible */
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+  }
+  .anim-flow {
+    stroke-dasharray: 4 12;
+  }
+  .anim-packet,
+  .anim-bus,
+  .anim-vbus,
+  .anim-scan {
+    display: none;
+  }
+  .anim-sweep::after {
+    display: none;
+  }
+  .anim-trend {
+    stroke-dasharray: none;
+  }
+  .anim-gauge {
+    stroke-dashoffset: var(--gauge-target, 120);
+  }
+}
