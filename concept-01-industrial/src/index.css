@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── CONCEPT 01 — INDUSTRIAL palette ───────────────────── */
+  --color-ink: #0c0e10; /* base surface — near-black charcoal */
+  --color-ink-2: #14171a; /* alternating section */
+  --color-ink-3: #1a1e22; /* raised surface */
+  --color-fg: #e8eaed; /* primary text */
+  --color-muted: #8b9198; /* secondary text */
+  --color-line: #2a2f34; /* 1px engineering line */
+  --color-line-soft: #1f2429;
+  --color-orange: #f26b1d; /* industrial safety orange — used sparingly */
+  --color-orange-dim: #b8511a;
+
+  /* ── Type stacks — robust fallbacks if CDN fonts fail ──── */
+  --font-sans:
+    "IBM Plex Sans", "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* fixed header offset for anchor scrolling */
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Latin glyphs render in IBM Plex Sans; 한글 글리프는 스택 내 Pretendard로
+     자동 폴백된다 (per-glyph fallback). CDN 실패 시 시스템 폰트로 폴백. */
+
+  ::selection {
+    background: var(--color-orange);
+    color: #0c0e10;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* ── Engineering grid overlay ───────────────────────────── */
+  .eng-grid {
+    background-image:
+      linear-gradient(to right, rgba(232, 234, 237, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(232, 234, 237, 0.035) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .eng-grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(232, 234, 237, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(232, 234, 237, 0.025) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ── Mono label system ──────────────────────────────────── */
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* ── Scroll reveal (IntersectionObserver toggles .is-in) ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
