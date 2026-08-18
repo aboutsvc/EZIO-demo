@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+ * CONCEPT 05 — KOREAN ENTERPRISE
+ * 한국 대기업 제품 포털 레이아웃 문법 (유틸바 / GNB+메가메뉴 / 메인 슬라이더 /
+ * 서브비주얼 + breadcrumb + 좌측 LNB).
+ * 팔레트는 EZIO 로열 블루 기반 — 벤치마크 대상 기업의 CI 컬러는 사용하지 않는다.
+ * ────────────────────────────────────────────── */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #ffffff;
+  --color-surface: #f4f6f8;
+  --color-surface-2: #eaeef3;
+
+  /* Text */
+  --color-ink: #222b36;
+  --color-muted: #5f6b7a;
+  --color-faint: #8b96a4;
+
+  /* Brand — EZIO royal blue */
+  --color-brand: #0b4da2;
+  --color-brand-dark: #073a7d;
+  --color-brand-sky: #2f80de;
+  --color-brand-soft: #eaf1fb;
+  --color-brand-tint: #d6e4f7;
+
+  /* Dark band */
+  --color-navy: #132c4d;
+  --color-deep: #0b1f3a;
+
+  /* Lines */
+  --color-line: #dde3ea;
+  --color-line-strong: #c6d0db;
+
+  /* Typography — Pretendard(KO) 우선 + Inter(EN/숫자) + 시스템 fallback */
+  --font-sans:
+    "Pretendard Variable", Pretendard, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", Roboto, Helvetica, Arial, sans-serif;
+  --font-en:
+    "Inter", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+    sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    word-break: keep-all; /* 한국어 줄바꿈 — 단어 중간에서 끊기지 않도록 */
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* 메인 슬라이더 진입 카피 — 슬라이드 전환 시 재생 */
+  .slide-in {
+    animation: ez-slide-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes ez-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* 인디케이터 바 진행 애니메이션 */
+  .bar-progress::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 100%;
+    transform-origin: left;
+    background: #fff;
+    animation: ez-bar 6s linear both;
+  }
+  @keyframes ez-bar {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* 가로 스크롤 탭(모바일 LNB) — 스크롤바 숨김 */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 섹션 타이틀 좌측 블루 액센트 */
+  .title-accent::before {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 3px;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--color-brand), var(--color-brand-sky));
+  }
+}
