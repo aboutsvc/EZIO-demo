@@ -1,6 +1,9 @@
-# EZIO Corporate Website — 4 Design Concepts
+# EZIO Corporate Website — 6 Design Concepts
 
-주식회사 이지오(EZIO)의 새로운 기업 웹사이트를 위한 **서로 다른 4개의 디자인 콘셉트 데모**입니다.
+주식회사 이지오(EZIO)의 새로운 기업 웹사이트를 위한 **서로 다른 6개의 디자인 콘셉트 데모**입니다.
+
+- **Concept 01~04**: 해외 트렌드의 원페이지 스크롤 방식 (Industrial / Corporate / Technology / Minimal)
+- **Concept 05~06**: 한국 기업 홈페이지 문법의 멀티페이지 방식 (대기업 제품 포털 / 전통 기업 홈페이지)
 
 > **Positioning**: 산업 플랜트와 대형 사업장을 대상으로 검증된 전력·자동화 제품과 관련 엔지니어링을 연결하여 공급하는 **B2B Industrial Power Solution Company**
 >
@@ -14,14 +17,18 @@
 
 ```
 /
-├── concept-01-industrial/   # Heavy Industrial / Plant Engineering
-├── concept-02-corporate/    # Trust / Enterprise / Professional
-├── concept-03-technology/   # Smart Power / Digital Infrastructure
-├── concept-04-minimal/      # Premium Industrial Minimalism
+├── concept-01-industrial/        # Heavy Industrial / Plant Engineering (원페이지)
+├── concept-02-corporate/         # Trust / Enterprise / Professional (원페이지)
+├── concept-03-technology/        # Smart Power / Digital Infrastructure (원페이지)
+├── concept-04-minimal/           # Premium Industrial Minimalism (원페이지)
+├── concept-05-korean-enterprise/ # 한국 대기업 제품 포털 스타일 (멀티페이지)
+├── concept-06-korean-classic/    # 전통 한국 기업 홈페이지 스타일 (멀티페이지)
 ├── docs/
-│   ├── design-spec.md       # 4개 콘셉트 상세 디자인 명세
-│   ├── research-summary.md  # 레퍼런스 사이트 조사 요약
-│   └── shared-content/      # 공통 콘텐츠 모델 (단일 기준)
+│   ├── design-spec.md           # Concept 01~04 상세 디자인 명세
+│   ├── design-spec-korean.md    # Concept 05~06 상세 디자인 명세
+│   ├── research-summary.md      # 레퍼런스 사이트 조사 요약
+│   ├── shared-content/          # 공통 콘텐츠 모델 (단일 기준)
+│   └── shared-visuals/          # 공유 장면 아트워크 (8종 × 4톤 SVG 일러스트)
 ├── deploy/index.html        # 콘셉트 선택 랜딩 페이지 (GitHub Pages 루트)
 └── .github/workflows/deploy.yml  # GitHub Pages 자동 배포
 ```
@@ -45,11 +52,13 @@ yarn build                 # 정적 빌드 → dist/
 `.github/workflows/deploy.yml`이 push 시 4개 콘셉트를 모두 빌드하여 하나의 사이트로 배포합니다.
 
 ```
-/                        → 콘셉트 선택 랜딩 페이지
-/concept-01-industrial/  → Concept 01
-/concept-02-corporate/   → Concept 02
-/concept-03-technology/  → Concept 03
-/concept-04-minimal/     → Concept 04
+/                              → 콘셉트 선택 랜딩 페이지
+/concept-01-industrial/        → Concept 01
+/concept-02-corporate/         → Concept 02
+/concept-03-technology/        → Concept 03
+/concept-04-minimal/           → Concept 04
+/concept-05-korean-enterprise/ → Concept 05
+/concept-06-korean-classic/    → Concept 06
 ```
 
 > 저장소 Settings → Pages → Source를 **GitHub Actions**로 설정하면 활성화됩니다.
@@ -60,7 +69,23 @@ yarn build                 # 정적 빌드 → dist/
 
 ---
 
-## 4개 콘셉트 비교
+## 콘셉트 비교
+
+### Concept 05 · 06 — 한국 기업 홈페이지 스타일 (멀티페이지)
+
+| | Concept 05 — Korean Enterprise | Concept 06 — Korean Classic |
+|---|---|---|
+| **테마** | 한국 대기업 전기·전자 제품 포털 (LS ELECTRIC 레이아웃 문법 벤치마크) | 전통적인 한국 중소·중견 기업 홈페이지 |
+| **구조** | 멀티페이지 (HashRouter) — 회사소개/제품/솔루션/프로젝트/고객지원 | 멀티페이지 — 회사소개(인사말·개요·연혁·오시는길)/사업분야/제품/실적/고객센터 |
+| **헤더** | 유틸바 + GNB **메가메뉴** (전체 폭 드롭다운 패널) | 유틸바 + GNB 단순 드롭다운 |
+| **메인** | 풀와이드 비주얼 슬라이더 + 제품 퀵카드 + 솔루션 탭 + 공지·자료실 | 배너 슬라이더 + 회사소개 배너·사업분야 아이콘·공지사항·문의 박스 그리드 + 플로팅 퀵메뉴 |
+| **서브페이지** | 서브비주얼 + breadcrumb + 좌측 LNB 카테고리 트리 | 서브비주얼 바 + breadcrumb + 좌측 LNB + `▎` 섹션 타이틀·클래식 테이블 |
+| **컬러** | 로열 블루 `#0B4DA2` | 클래식 블루 `#1B5AA6` + 네이비 |
+| **추천 용도** | 제품 카탈로그 중심 소통, 대기업 벤더 포털에 익숙한 담당자 대상 | 보수적인 국내 발주처·구매팀에게 가장 익숙한 형태 |
+
+> Concept 05는 LS ELECTRIC의 **레이아웃 구조만** 벤치마크했으며, 로고·이미지·문구·CI 컬러는 사용하지 않았습니다.
+
+### Concept 01~04 — 원페이지 스크롤 (해외 트렌드형)
 
 | | Concept 01 — Industrial | Concept 02 — Corporate | Concept 03 — Technology | Concept 04 — Minimal |
 |---|---|---|---|---|
@@ -91,7 +116,8 @@ yarn build                 # 정적 빌드 → dist/
 - **"EZIO Co., Ltd."는 데모용 표기** — 공식 등록 영문 법인명 확인 전까지 법적 명칭으로 단정하지 않음.
 - **쇼핑몰 UI 배제** — 가격/장바구니/구매 버튼 없음. 제품은 카테고리 중심, CTA는 상담·견적 요청.
 - 모든 텍스트는 `src/data/content.ts`(공통 콘텐츠 모델 복사본)에서 관리 — 실제 회사 자료 수령 시 데이터 파일만 수정하면 됨.
-- 이미지는 저작권 안전한 **자체 제작 SVG 산업 비주얼**(placeholder)로 구성 — 실제 현장 사진 수령 시 컴포넌트 단위 교체.
+- **전화번호·팩스·이메일 미표기** — 확인된 연락처가 없어 임의 생성하지 않고 온라인 문의 폼으로 유도. 게시판 데모 게시물은 명시적으로 표기.
+- 이미지는 저작권 안전한 **자체 제작 장면 아트워크**(`docs/shared-visuals/` — 정유 플랜트 야경·배전반실·관제실·변전 설비·보호계전기·HMI·공장 부감·엔지니어 실루엣 8종 × dark/light/navy/warm 4톤 SVG 일러스트)로 구성 — 실제 현장 사진 수령 시 동일 슬롯에 교체 가능.
 
 ---
 

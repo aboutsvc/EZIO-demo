@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p _site
           cp deploy/index.html _site/index.html
-          for c in concept-01-industrial concept-02-corporate concept-03-technology concept-04-minimal; do
+          for c in concept-01-industrial concept-02-corporate concept-03-technology concept-04-minimal concept-05-korean-enterprise concept-06-korean-classic; do
             echo "=== Building $c ==="
             (cd "$c" && yarn install --frozen-lockfile --non-interactive && yarn build)
             mkdir -p "_site/$c"
