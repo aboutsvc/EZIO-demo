@@ -1,6 +1,7 @@
 import Container from "../components/Container";
 import SectionHeader from "../components/SectionHeader";
 import Reveal from "../components/Reveal";
+import { EngineerAtPanel } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { capabilities, processSteps } from "../data/content";
 import { ui } from "../data/ui";
@@ -80,6 +81,14 @@ export default function Capability() {
               <p className="mt-4 text-[0.9375rem] leading-[1.8] text-muted">
                 {t(ui.technicalScopeLead)}
               </p>
+
+              {/* 향후 실제 현장 사진 확보 시 동일 컨테이너에 <img>로 대체 가능 */}
+              <div
+                className="mt-8 hidden aspect-[4/3] w-full overflow-hidden border border-line bg-paper lg:block"
+                style={{ borderRadius: "3px" }}
+              >
+                <EngineerAtPanel tone="light" />
+              </div>
             </div>
 
             <div className="lg:col-span-8">

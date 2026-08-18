@@ -1,5 +1,5 @@
 import Section, { CornerMarks } from "../components/Section";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { SubstationYard } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { intro, positioning } from "../data/content";
 
@@ -33,17 +33,21 @@ export default function Intro() {
           </div>
         </div>
 
-        {/* 도면 비주얼 — 실제 현장 사진으로 교체 예정 */}
+        {/* 현장 비주얼 — 동일 슬롯에 실제 현장 사진을 넣을 수 있다 */}
         <div className="reveal relative md:col-span-5">
           <CornerMarks />
-          <div className="border border-line">
-            <IndustrialVisual variant="blueprint" className="w-full" />
+          <div className="relative aspect-[4/3] overflow-hidden border border-line">
+            <SubstationYard tone="dark" className="h-full w-full" />
+            <span
+              aria-hidden="true"
+              className="eng-grid-fine pointer-events-none absolute inset-0 opacity-60"
+            />
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <span className="mono-label text-muted/60">
-              FIG. 01 — SITE LAYOUT (ILLUSTRATIVE)
+              FIG. 01 — SUBSTATION YARD
             </span>
-            <span className="mono-label text-muted/40">SVG</span>
+            <span className="mono-label text-muted/40">REF. A-01</span>
           </div>
         </div>
       </div>

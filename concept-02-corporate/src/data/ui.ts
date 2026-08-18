@@ -116,10 +116,4 @@ export const ui = {
     network: { ko: "네트워크", en: "Network" },
     monitoring: { ko: "감시", en: "Monitoring" },
   } as Record<string, I18n>,
-
-  /* Visual placeholder notes */
-  visualNote: {
-    ko: "이미지 placeholder — 실제 현장 사진으로 교체 예정",
-    en: "Illustrative placeholder — to be replaced with actual site photography",
-  },
 } satisfies Record<string, unknown>;

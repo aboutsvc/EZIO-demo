@@ -1,6 +1,7 @@
 import Container from "../components/Container";
 import SectionHeader from "../components/SectionHeader";
 import Reveal from "../components/Reveal";
+import { HmiScreen } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { featuredProject, projectCustomerName } from "../data/content";
 import { ui } from "../data/ui";
@@ -49,6 +50,12 @@ export default function FeaturedProject() {
               <p className="mt-4 max-w-3xl text-[0.9375rem] leading-[1.85] text-white/65">
                 {t(featuredProject.summary)}
               </p>
+            </div>
+
+            {/* 전력 감시 HMI 비주얼 밴드 */}
+            {/* 향후 실제 현장 사진 확보 시 동일 컨테이너에 <img>로 대체 가능 */}
+            <div className="h-[220px] w-full overflow-hidden border-b border-line bg-surface sm:h-[320px] lg:h-[430px]">
+              <HmiScreen tone="light" />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12">

@@ -1,5 +1,5 @@
 import Section from "../components/Section";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { PlantAerial } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { industries } from "../data/content";
 
@@ -50,15 +50,26 @@ export default function Industries() {
         ))}
       </ul>
 
-      {/* 파이프랙 / 철골 비주얼 — 실제 현장 사진으로 교체 예정 */}
-      <div className="reveal mt-12 border border-line">
-        <IndustrialVisual variant="pipes" className="w-full" />
+      {/* 산업단지 부감 밴드 — 동일 슬롯에 실제 현장 사진 대체 가능 */}
+      <div className="reveal relative mt-12 h-[240px] overflow-hidden border border-line sm:h-[300px] lg:h-[400px]">
+        {/* 넓은 밴드에서 부감 지평선이 잘리지 않도록 실제 렌더 높이를 키우고 상단 정렬 크롭 */}
+        <div className="absolute inset-x-0 top-0 h-[155%]">
+          <PlantAerial tone="dark" className="h-full w-full" />
+        </div>
+        <span
+          aria-hidden="true"
+          className="eng-grid pointer-events-none absolute inset-0 opacity-50"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,rgba(20,23,26,0.85),transparent)]"
+        />
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <span className="mono-label text-muted/60">
-          FIG. 03 — PIPE RACK / STRUCTURE (ILLUSTRATIVE)
+          FIG. 03 — INDUSTRIAL COMPLEX / AERIAL
         </span>
-        <span className="mono-label text-muted/40">SVG</span>
+        <span className="mono-label text-muted/40">REF. A-03</span>
       </div>
     </Section>
   );

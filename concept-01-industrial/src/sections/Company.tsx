@@ -37,7 +37,7 @@ export default function Company() {
       </ul>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-14">
-        {/* CEO 메시지 — 데모 placeholder 명시 */}
+        {/* CEO 메시지 — 데모 표기 명시 */}
         <div className="lg:col-span-7">
           <div className="flex items-baseline justify-between border-b border-line pb-4">
             <span className="mono-label text-fg/70">
@@ -45,7 +45,7 @@ export default function Company() {
             </span>
             {company.ceoMessage.isPlaceholder && (
               <span className="mono-label text-muted/50">
-                {lang === "ko" ? "데모 표기" : "Demo placeholder"}
+                {lang === "ko" ? "데모 표기" : "Demo notation"}
               </span>
             )}
           </div>

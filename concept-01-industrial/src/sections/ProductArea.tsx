@@ -1,5 +1,5 @@
 import Section, { CornerMarks } from "../components/Section";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { SwitchgearRoom } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { lsElectricArea, productCategories, productCtas } from "../data/content";
 
@@ -47,17 +47,21 @@ export default function ProductArea() {
           </ul>
         </div>
 
-        {/* 우: 배전반 패널 비주얼 — 실제 현장 사진으로 교체 예정 */}
+        {/* 우: 배전반실 비주얼 — 동일 슬롯에 실제 현장 사진 대체 가능 */}
         <div className="reveal relative lg:col-span-5">
           <CornerMarks />
-          <div className="border border-line">
-            <IndustrialVisual variant="switchgear" className="w-full" />
+          <div className="relative aspect-[4/3] overflow-hidden border border-line">
+            <SwitchgearRoom tone="dark" className="h-full w-full" />
+            <span
+              aria-hidden="true"
+              className="eng-grid-fine pointer-events-none absolute inset-0 opacity-60"
+            />
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <span className="mono-label text-muted/60">
-              FIG. 02 — SWITCHGEAR LINE-UP (ILLUSTRATIVE)
+              FIG. 02 — SWITCHGEAR LINE-UP
             </span>
-            <span className="mono-label text-muted/40">SVG</span>
+            <span className="mono-label text-muted/40">REF. A-02</span>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import IndustrialVisual from "../components/IndustrialVisual";
+import { RefineryDusk } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { brandMessages, positioning } from "../data/content";
 
@@ -21,13 +21,22 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-[100svh] flex-col overflow-hidden bg-ink pt-[72px]"
     >
-      {/* 배경: 정유 플랜트 실루엣 (SVG placeholder) */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] opacity-90">
-        <IndustrialVisual variant="refinery" className="h-full w-full" />
-      </div>
+      {/* 배경: 정유 플랜트 황혼 씬 — 추후 실제 현장 사진으로 대체 가능한 자리 */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,#0C0E10_18%,rgba(12,14,16,0.72)_52%,rgba(12,14,16,0.88)_100%)]"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <RefineryDusk tone="dark" className="h-full w-full" />
+      </div>
+      {/* 수직 스크림 — 상단 헤더/하단 스트립 대비 확보 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(12,14,16,0.88)_0%,rgba(12,14,16,0.70)_9%,rgba(12,14,16,0.26)_34%,rgba(12,14,16,0.32)_66%,rgba(12,14,16,0.90)_100%)]"
+      />
+      {/* 수평 스크림 — 좌측 카피 가독성 확보 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(12,14,16,0.82)_0%,rgba(12,14,16,0.56)_42%,rgba(12,14,16,0.04)_100%)]"
       />
       <div
         aria-hidden="true"

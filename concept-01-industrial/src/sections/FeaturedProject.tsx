@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Section, { CornerMarks } from "../components/Section";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { HmiScreen } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { featuredProject, projectCustomerName } from "../data/content";
 
@@ -70,17 +70,17 @@ export default function FeaturedProject() {
           </p>
         </div>
 
-        {/* 감시 화면 목업 — 실제 현장 사진/화면으로 교체 예정 */}
+        {/* 감시 화면 비주얼 — 동일 슬롯에 실제 현장 사진/화면 캡처 대체 가능 */}
         <div className="reveal relative lg:col-span-5">
           <CornerMarks />
-          <div className="border border-line">
-            <IndustrialVisual variant="hmi" className="w-full" />
+          <div className="relative aspect-[4/3] overflow-hidden border border-line">
+            <HmiScreen tone="dark" className="h-full w-full" />
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <span className="mono-label text-muted/60">
-              FIG. 04 — MONITORING VIEW (ILLUSTRATIVE)
+              FIG. 04 — MONITORING VIEW
             </span>
-            <span className="mono-label text-muted/40">SVG</span>
+            <span className="mono-label text-muted/40">REF. A-04</span>
           </div>
 
           <div className="mt-8 border border-line p-6">

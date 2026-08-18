@@ -1,4 +1,5 @@
 import Section from "../components/Section";
+import { ControlRoom } from "../components/scenes";
 import { useLang } from "../context/LanguageContext";
 import { powerFlow } from "../data/content";
 import type { FlowNode } from "../data/content";
@@ -121,8 +122,23 @@ export default function PowerFlow() {
       </ol>
 
       <p className="mono-label mt-10 text-center text-muted/50">
-        SINGLE-LINE REPRESENTATION — ILLUSTRATIVE
+        SINGLE-LINE REPRESENTATION — SCHEMATIC
       </p>
+
+      {/* 흐름의 종착점: 중앙 관제 환경 — 동일 슬롯에 실제 현장 사진 대체 가능 */}
+      <div className="reveal relative mt-16 h-[240px] overflow-hidden border border-line sm:h-[320px] lg:h-[420px]">
+        <ControlRoom tone="dark" className="h-full w-full" />
+        <span
+          aria-hidden="true"
+          className="eng-grid pointer-events-none absolute inset-0 opacity-50"
+        />
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <span className="mono-label text-muted/60">
+          FIG. 05 — CENTRAL CONTROL ROOM
+        </span>
+        <span className="mono-label text-muted/40">REF. A-05</span>
+      </div>
     </Section>
   );
 }

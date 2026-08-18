@@ -1,5 +1,5 @@
 import Container from "../components/Container";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { SwitchgearRoom } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { brandMessages, company, positioning, productCtas } from "../data/content";
 import { ui } from "../data/ui";
@@ -76,19 +76,23 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* 우 — 산업 비주얼 (SVG placeholder) */}
+          {/* 우 — 산업 현장 비주얼 */}
           <div className="lg:col-span-6">
             <div
               className="relative border border-line bg-paper p-3 shadow-[0_1px_2px_rgba(14,27,51,0.04)]"
               style={{ borderRadius: "3px" }}
             >
-              {/* 실제 현장 사진 수령 시 교체 예정 */}
-              <IndustrialVisual variant="switchgear" className="h-auto w-full" />
-              <div className="flex items-center justify-between border-t border-line px-1 pt-3">
+              {/* 향후 실제 현장 사진 확보 시 동일 컨테이너에 <img>로 대체 가능 */}
+              <div
+                className="aspect-[4/3] w-full overflow-hidden border border-line"
+                style={{ borderRadius: "2px" }}
+              >
+                <SwitchgearRoom tone="light" />
+              </div>
+              <div className="border-t border-line px-1 pt-3">
                 <p className="text-[0.6875rem] tracking-[0.14em] text-muted uppercase">
                   Switchgear / Distribution
                 </p>
-                <p className="text-[0.6875rem] text-muted/70">{t(ui.visualNote)}</p>
               </div>
             </div>
           </div>

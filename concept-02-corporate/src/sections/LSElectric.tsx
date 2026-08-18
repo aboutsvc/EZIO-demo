@@ -1,6 +1,6 @@
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { RelayPanel } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { lsElectricArea } from "../data/content";
 
@@ -49,8 +49,13 @@ export default function LSElectric() {
               className="border border-line bg-paper p-6 lg:p-8"
               style={{ borderRadius: "3px" }}
             >
-              {/* 실제 현장 사진 / 제품 이미지로 교체 예정 */}
-              <IndustrialVisual variant="network" className="h-auto w-full" />
+              {/* 향후 실제 현장 사진 / 제품 이미지 확보 시 동일 컨테이너에 <img>로 대체 가능 */}
+              <div
+                className="aspect-[3/2] w-full overflow-hidden border border-line"
+                style={{ borderRadius: "2px" }}
+              >
+                <RelayPanel tone="light" />
+              </div>
               <div className="mt-5 grid grid-cols-2 gap-px border border-line bg-line">
                 {lsElectricArea.categories.slice(0, 4).map((cat, i) => (
                   <div key={i} className="bg-surface px-4 py-3">

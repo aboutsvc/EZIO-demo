@@ -1,6 +1,6 @@
 import Container from "../components/Container";
 import Reveal from "../components/Reveal";
-import IndustrialVisual from "../components/IndustrialVisual";
+import { RefineryDusk } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { intro, positioning, solutions } from "../data/content";
 import { ui } from "../data/ui";
@@ -44,19 +44,20 @@ export default function Intro() {
           </div>
         </Reveal>
 
-        {/* 플랜트 스카이라인 밴드 — SVG placeholder */}
+        {/* 플랜트 스카이라인 밴드 */}
         <Reveal delay={80}>
           <figure
             className="mt-14 overflow-hidden border border-line bg-surface"
             style={{ borderRadius: "3px" }}
           >
-            {/* 실제 현장 사진으로 교체 예정 */}
-            <IndustrialVisual variant="plant" className="block h-auto w-full" />
+            {/* 향후 실제 현장 사진 확보 시 동일 컨테이너에 <img>로 대체 가능 */}
+            <div className="h-[260px] w-full overflow-hidden sm:h-[380px] lg:h-[520px]">
+              <RefineryDusk tone="light" />
+            </div>
             <figcaption className="flex flex-col gap-1 border-t border-line bg-paper px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-[0.75rem] font-semibold tracking-[0.12em] text-ink uppercase">
                 {t(positioning.primary)}
               </span>
-              <span className="text-[0.75rem] text-muted">{t(ui.visualNote)}</span>
             </figcaption>
           </figure>
         </Reveal>
