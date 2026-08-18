@@ -1,6 +1,7 @@
-import IndustrialVisual from "../components/IndustrialVisual";
 import Reveal from "../components/Reveal";
+import SceneFigure from "../components/SceneFigure";
 import Section from "../components/Section";
+import { SwitchgearRoom } from "../components/scenes";
 import { useLanguage } from "../context/LanguageContext";
 import { lsElectricArea } from "../data/content";
 
@@ -55,12 +56,22 @@ export default function LsElectric() {
         </div>
       </div>
 
-      {/* 비주얼 1/2 — 흑백 라인 드로잉 (실제 현장 사진으로 교체 예정) */}
-      <Reveal className="mt-16 md:mt-24" delay={120}>
-        <div className="text-paper/25">
-          <IndustrialVisual variant="switchgear" />
-        </div>
-      </Reveal>
+      {/* 씬 1/3 — MV/LV 배전반실. 다크 지면 위에 인화지 도판처럼 얹는다 */}
+      <SceneFigure
+        className="mt-16 md:mt-24"
+        delay={120}
+        tone="dark"
+        ratio="aspect-[4/3] sm:aspect-[21/9]"
+        caption="Switchgear Room"
+        note="MV / LV Lineup"
+      >
+        {/* warm 톤 유지 — dark 톤은 오렌지/시안 표시등이 단일 악센트 규칙과 충돌한다.
+            대비를 아주 조금만 올려 니어블랙 지면 위에서 날아가지 않게 한다. */}
+        <SwitchgearRoom
+          tone="warm"
+          className="h-full w-full contrast-[1.07] brightness-[0.97]"
+        />
+      </SceneFigure>
     </Section>
   );
 }
