@@ -1,15 +1,13 @@
-# EZIO Corporate Website — 6 Design Concepts
+# EGO Corporate Website — 6 Design Concepts
 
-주식회사 이지오(EZIO)의 새로운 기업 웹사이트를 위한 **서로 다른 6개의 디자인 콘셉트 데모**입니다.
+EGO(Energe Goes On)의 새로운 기업 웹사이트를 위한 **서로 다른 6개의 디자인 콘셉트 데모**입니다.
 
-- **Concept 01~04**: 해외 트렌드의 원페이지 스크롤 방식 (Industrial / Corporate / Technology / Minimal)
-- **Concept 05~06**: 한국 기업 홈페이지 문법의 멀티페이지 방식 (대기업 제품 포털 / 전통 기업 홈페이지)
+- **Concept 02 · 06 (최종 후보)**: 확정 콘텐츠 명세서(`docs/EGO_website_content_specification.md`)의 메뉴 구조·페이지 문안을 반영한 **멀티페이지** 버전 — 02는 모던 스타일, 06은 전통 한국 기업 홈페이지 스타일
+- **Concept 01 · 03 · 04 · 05**: 초기 디자인 탐색 단계의 데모 (구 EZIO 콘텐츠 유지)
 
-> **Positioning**: 산업 플랜트와 대형 사업장을 대상으로 검증된 전력·자동화 제품과 관련 엔지니어링을 연결하여 공급하는 **B2B Industrial Power Solution Company**
+> **Positioning (확정)**: EGO는 LS ELECTRIC 제품의 상담·견적·판매부터 발주·납품 관리, 현장 요청 대응과 제조사 연계 A/S까지 고객 접점을 담당하는 **산업재 공급·지원 회사**입니다.
 >
-> Power Distribution · Protection · Monitoring · Automation · Engineering
-
-4개 콘셉트는 동일한 회사·콘텐츠를 사용하지만 레이아웃, 타이포그래피, 히어로 구성, 섹션 리듬, 비주얼 언어, 인터랙션 방식이 모두 다르게 설계되었습니다.
+> 확정 메뉴: 홈 · 회사소개(EGO 소개/비전·경영철학/경영진/사업장) · 사업영역(제품 공급/납품·현장 대응/기술지원·A/S) · 주요 고객·수행실적 · 고객지원(제품·견적 문의/A/S 접수/기술자료/공지) · 채용정보
 
 ---
 
@@ -65,7 +63,8 @@ yarn build                 # 정적 빌드 → dist/
 
 ### 언어
 
-기본 언어는 **한국어**이며, 각 사이트 헤더의 **KO / EN 토글**로 영어 전환이 가능합니다 (선택 언어는 localStorage에 저장).
+- **Concept 02 · 06 (최종 후보)**: 확정 콘텐츠 명세서가 한국어 문안만 정의하므로 **한국어 단일** (KO/EN 토글 없음).
+- **Concept 01 · 03 · 04 · 05**: 헤더의 KO / EN 토글로 영어 전환 가능 (localStorage 저장).
 
 ---
 
