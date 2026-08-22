@@ -1,41 +1,25 @@
 import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "./Container";
 import Logo from "./Logo";
-import LanguageToggle from "./LanguageToggle";
-import { useLanguage } from "../context/LanguageContext";
-import { company, nav, positioning } from "../data/content";
-import { ui } from "../data/ui";
-
-const NAV_ITEMS = [
-  { id: "company", label: nav.company },
-  { id: "solutions", label: nav.solutions },
-  { id: "products", label: nav.products },
-  { id: "capability", label: nav.capability },
-  { id: "projects", label: nav.projects },
-  { id: "contact", label: nav.contact },
-];
+import { company, headerCta, headerSubCta, navItems, ui } from "../data/site";
 
 export default function Header() {
-  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 12);
-      const offset = window.scrollY + 140;
-      let current = "";
-      NAV_ITEMS.forEach((item) => {
-        const el = document.getElementById(item.id);
-        if (el && el.offsetTop <= offset) current = item.id;
-      });
-      setActive(current);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // 라우트 이동 시 모바일 드로어 닫기
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -44,19 +28,21 @@ export default function Header() {
     };
   }, [open]);
 
+  const isActive = (base: string) => pathname === base || pathname.startsWith(`${base}/`);
+
   return (
     <header className="sticky top-0 z-50">
-      {/* 상단 얇은 유틸리티 바 — 언어 토글 위치 */}
+      {/* 상단 얇은 유틸리티 바 */}
       <div className="hidden bg-navy text-white/70 lg:block">
         <Container>
           <div className="flex h-9 items-center justify-between">
-            <p className="text-[0.6875rem] tracking-[0.1em]">
-              {t(positioning.supporting)}
-            </p>
-            <div className="flex items-center gap-5">
-              <span className="text-[0.6875rem] tracking-[0.04em]">{t(company.addressShort)}</span>
-              <LanguageToggle tone="dark" />
-            </div>
+            <p className="text-[0.6875rem] tracking-[0.1em]">{company.headerTagline}</p>
+            <Link
+              to={headerSubCta.path}
+              className="text-[0.6875rem] font-semibold tracking-[0.08em] text-white/80 transition-colors duration-150 hover:text-white"
+            >
+              {headerSubCta.label}
+            </Link>
           </div>
         </Container>
       </div>
@@ -69,49 +55,98 @@ export default function Header() {
       >
         <Container>
           <div className="flex h-16 items-center justify-between lg:h-[72px]">
-            <a href="#top" className="shrink-0" aria-label={company.wordmark}>
+            <Link to="/" className="shrink-0" aria-label={`${company.wordmark} 홈`}>
               <Logo />
-            </a>
+            </Link>
 
-            <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={`relative px-3.5 py-2 text-[0.875rem] font-medium transition-colors duration-150 hover:text-brand ${
-                    active === item.id ? "text-brand" : "text-ink"
-                  }`}
-                >
-                  {t(item.label)}
-                  <span
-                    aria-hidden="true"
-                    className={`absolute inset-x-3 -bottom-px h-[2px] bg-brand transition-opacity duration-150 ${
-                      active === item.id ? "opacity-100" : "opacity-0"
+            <nav className="hidden items-center gap-1 lg:flex" aria-label="주 메뉴">
+              {navItems.map((item) =>
+                item.children ? (
+                  <div key={item.base} className="group relative">
+                    <NavLink
+                      to={item.path}
+                      className={`relative flex items-center gap-1.5 px-3.5 py-2 text-[0.875rem] font-medium transition-colors duration-150 hover:text-brand ${
+                        isActive(item.base) ? "text-brand" : "text-ink"
+                      }`}
+                      aria-haspopup="true"
+                    >
+                      {item.label}
+                      <svg
+                        width="9"
+                        height="6"
+                        viewBox="0 0 9 6"
+                        fill="none"
+                        aria-hidden="true"
+                        className="mt-px transition-transform duration-150 group-hover:rotate-180 group-focus-within:rotate-180"
+                      >
+                        <path d="M1 1l3.5 3.5L8 1" stroke="currentColor" strokeWidth="1.4" />
+                      </svg>
+                      <span
+                        aria-hidden="true"
+                        className={`absolute inset-x-3 -bottom-px h-[2px] bg-brand transition-opacity duration-150 ${
+                          isActive(item.base) ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    </NavLink>
+
+                    {/* 드롭다운 */}
+                    <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                      <ul
+                        className="min-w-[220px] border border-line bg-paper py-2 shadow-[0_8px_28px_rgba(14,27,51,0.14)]"
+                        style={{ borderRadius: "3px" }}
+                      >
+                        {item.children.map((child) => (
+                          <li key={child.path}>
+                            <NavLink
+                              to={child.path}
+                              className={({ isActive: active }) =>
+                                `block px-5 py-2.5 text-[0.8438rem] transition-colors duration-150 hover:bg-brand-soft hover:text-brand ${
+                                  active ? "font-semibold text-brand" : "font-medium text-ink"
+                                }`
+                              }
+                            >
+                              {child.label}
+                            </NavLink>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    key={item.base}
+                    to={item.path}
+                    className={`relative px-3.5 py-2 text-[0.875rem] font-medium transition-colors duration-150 hover:text-brand ${
+                      isActive(item.base) ? "text-brand" : "text-ink"
                     }`}
-                  />
-                </a>
-              ))}
+                  >
+                    {item.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-3 -bottom-px h-[2px] bg-brand transition-opacity duration-150 ${
+                        isActive(item.base) ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                  </NavLink>
+                )
+              )}
             </nav>
 
             <div className="flex items-center gap-3">
-              <a
-                href="#contact"
+              <Link
+                to={headerCta.path}
                 className="hidden bg-brand px-5 py-2.5 text-[0.8125rem] font-semibold text-white transition-colors duration-150 hover:bg-brand-dark lg:inline-block"
                 style={{ borderRadius: "3px" }}
               >
-                {t(ui.headerCta)}
-              </a>
-
-              <div className="lg:hidden">
-                <LanguageToggle />
-              </div>
+                {headerCta.label}
+              </Link>
 
               <button
                 type="button"
                 onClick={() => setOpen((v) => !v)}
                 aria-expanded={open}
                 aria-controls="mobile-menu"
-                aria-label={open ? t(ui.closeMenu) : t(ui.openMenu)}
+                aria-label={open ? ui.closeMenu : ui.openMenu}
                 className="flex h-10 w-10 items-center justify-center border border-line-strong lg:hidden"
                 style={{ borderRadius: "3px" }}
               >
@@ -138,7 +173,7 @@ export default function Header() {
         </Container>
       </div>
 
-      {/* 모바일 메뉴 */}
+      {/* 모바일 드로어 */}
       <div
         id="mobile-menu"
         className={`overflow-hidden border-b border-line bg-paper lg:hidden ${
@@ -147,25 +182,64 @@ export default function Header() {
         style={{ transition: "max-height 0.28s ease" }}
       >
         <Container>
-          <nav className="flex flex-col py-2" aria-label="Mobile">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
+          <nav className="flex flex-col py-2" aria-label="모바일 메뉴">
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.base} className="border-b border-line py-3.5 last:border-b-0">
+                  <p className="text-[0.75rem] font-semibold tracking-[0.1em] text-brand">
+                    {item.label}
+                  </p>
+                  <ul className="mt-2 flex flex-col">
+                    {item.children.map((child) => (
+                      <li key={child.path}>
+                        <NavLink
+                          to={child.path}
+                          onClick={() => setOpen(false)}
+                          className={({ isActive: active }) =>
+                            `block py-2 text-[0.9375rem] ${
+                              active ? "font-semibold text-brand" : "font-medium text-ink"
+                            }`
+                          }
+                        >
+                          {child.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <NavLink
+                  key={item.base}
+                  to={item.path}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive: active }) =>
+                    `border-b border-line py-3.5 text-[0.9375rem] last:border-b-0 ${
+                      active ? "font-semibold text-brand" : "font-medium text-ink"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              )
+            )}
+            <div className="my-4 flex flex-col gap-2.5">
+              <Link
+                to={headerCta.path}
                 onClick={() => setOpen(false)}
-                className="border-b border-line py-3.5 text-[0.9375rem] font-medium text-ink last:border-b-0"
+                className="bg-brand px-5 py-3 text-center text-[0.875rem] font-semibold text-white"
+                style={{ borderRadius: "3px" }}
               >
-                {t(item.label)}
-              </a>
-            ))}
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="my-4 bg-brand px-5 py-3 text-center text-[0.875rem] font-semibold text-white"
-              style={{ borderRadius: "3px" }}
-            >
-              {t(ui.headerCta)}
-            </a>
+                {headerCta.label}
+              </Link>
+              <Link
+                to={headerSubCta.path}
+                onClick={() => setOpen(false)}
+                className="border border-line-strong px-5 py-3 text-center text-[0.875rem] font-semibold text-ink"
+                style={{ borderRadius: "3px" }}
+              >
+                {headerSubCta.label}
+              </Link>
+            </div>
           </nav>
         </Container>
       </div>

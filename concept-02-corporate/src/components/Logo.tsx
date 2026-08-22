@@ -1,4 +1,4 @@
-import { company } from "../data/content";
+import { company } from "../data/site";
 
 // Demo Wordmark — 공식 CI 수령 시 교체
 // 텍스트 워드마크 + 단순 기하학적 악센트(블루 바)만 사용. 심볼 로고 제작하지 않음.
@@ -28,7 +28,7 @@ export default function Logo({ tone = "dark", className = "" }: LogoProps) {
           {company.wordmark}
         </span>
         <span className={`mt-1 hidden text-[0.5625rem] tracking-[0.18em] uppercase sm:block ${subClass}`}>
-          Industrial Power
+          {company.englishMeaning}
         </span>
       </span>
     </span>
