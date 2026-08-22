@@ -39,7 +39,7 @@ export function Resources() {
         ))}
       </ul>
       <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted">
-        제품군 분류는 EGO의 실제 취급·지원 범위와 공개 자료가 확인된 항목만 사용합니다.
+        자료 분류는 실제 취급·지원 범위가 확인된 항목부터 순차적으로 공개됩니다.
       </p>
 
       {/* ── 3. 빈 상태 ── */}

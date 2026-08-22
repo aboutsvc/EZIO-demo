@@ -198,7 +198,7 @@ export const aboutExecutives = {
     },
     {
       position: "이사",
-      initial: "DIR",
+      initial: "Director",
       fields: [
         { label: "이름", value: "확정 후 게재 예정" },
         { label: "담당 영역", value: "확정 후 게재 예정" },

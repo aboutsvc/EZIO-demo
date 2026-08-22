@@ -4,7 +4,7 @@ export const careersPage = {
   hero: {
     title: "정확한 업무와 책임 있는 대응을 함께 만들어갈 사람",
     sub: "EGO는 고객의 요구를 세심하게 듣고, 제품 공급과 현장 지원의 각 단계를 끝까지 확인하는 동료를 찾습니다.",
-    cta: { label: "진행 중인 채용 확인", anchor: "#openings" },
+    cta: { label: "진행 중인 채용 확인", targetId: "openings" },
   },
   intro: {
     title: "제품과 현장을 연결하는 일은 정확한 확인에서 시작됩니다",

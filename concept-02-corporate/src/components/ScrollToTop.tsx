@@ -6,7 +6,8 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // html { scroll-behavior: smooth } 상속을 막기 위해 즉시 이동으로 고정
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname]);
 
   return null;

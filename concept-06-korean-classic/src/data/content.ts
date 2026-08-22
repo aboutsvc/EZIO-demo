@@ -51,18 +51,11 @@ export const commonCta = {
 export const productScopeNote =
   "구체적인 취급 및 공급 가능 여부는 제품명, 모델, 사양, 수량과 희망 일정을 확인한 뒤 안내드립니다.";
 
-/** 제조사 확인 공통 안내 (명세서 12.4) */
-export const makerCheckNote =
-  "제품 사양, 납기, 보증, 수리·교체 또는 대체 가능 여부는 LS ELECTRIC 또는 관련 기술조직의 확인이 필요할 수 있습니다. 확인 결과를 바탕으로 안내드립니다.";
-
 export const footerContent = {
-  intro: company.shortIntro,
+  /** 푸터 소개문 (명세서 12.6) */
+  intro:
+    "EGO는 LS ELECTRIC 제품의 상담·견적·판매, 발주·납품 관리, 현장 요청 대응과 제조사 연계 A/S를 지원하는 대리점입니다.",
   pendingLine: "회사 정보는 확정 후 게재됩니다.",
   demoNotice: "※ 데모 사이트 — 실제 전송/게시가 아닙니다.",
   copyright: "Copyright © EGO. All rights reserved.",
-};
-
-export const seo = {
-  title: "EGO — LS ELECTRIC 제품과 고객 현장을 잇습니다",
-  description: company.positioning,
 };

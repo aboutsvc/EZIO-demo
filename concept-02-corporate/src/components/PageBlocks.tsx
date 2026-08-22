@@ -133,7 +133,8 @@ export function InfoTable({ rows }: { rows: readonly InfoRow[] }) {
               row.pending ? "text-muted/80" : "text-ink"
             }`}
           >
-            {row.pending ? (
+            {/* 값 자체가 "확정 후 게재 예정"이면 배지가 같은 뜻을 중복해 읽히므로 생략 */}
+            {row.pending && row.value !== "확정 후 게재 예정" ? (
               <span className="inline-flex items-center gap-2">
                 <span
                   className="border border-line-strong px-2 py-0.5 text-[0.6875rem] font-semibold tracking-[0.06em] text-muted"

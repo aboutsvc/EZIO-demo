@@ -219,14 +219,15 @@ export const bannerSlides: BannerSlide[] = [
 /* ──────────────────────────────────────────────
  * 4. 공지사항 — 명세서의 "[예시]" 공지 5건 (실제 공지 아님)
  *    각 행에 데모 배지를 표기하고 목록 하단에 데모 고지를 유지한다.
- *    날짜는 게시판 레이아웃 확인용 데모 표기이다.
+ *    등록일은 확정된 사실이 아니므로 날짜를 지어내지 않고 "—"로 표기한다.
  * ────────────────────────────────────────────── */
 
 export interface NoticePost {
   no: number;
   category: string;
   title: string;
-  date: string;
+  /** 미확정 등록일 공통 표기 — 날짜를 만들어내지 않는다 */
+  date: "—";
   isDemo: true;
 }
 
@@ -235,35 +236,35 @@ export const notices: NoticePost[] = [
     no: 5,
     category: "운영 안내",
     title: "[예시] 연휴 기간 고객지원 운영 안내",
-    date: "2026-01-12",
+    date: "—",
     isDemo: true,
   },
   {
     no: 4,
     category: "고객지원",
     title: "[예시] 대표 전화번호 및 문의 채널 변경 안내",
-    date: "2026-01-05",
+    date: "—",
     isDemo: true,
   },
   {
     no: 3,
     category: "제품·자료",
     title: "[예시] LS ELECTRIC 공식 카탈로그 업데이트 안내",
-    date: "2025-12-18",
+    date: "—",
     isDemo: true,
   },
   {
     no: 2,
     category: "고객지원",
     title: "[예시] A/S 접수 시 필수 정보 안내",
-    date: "2025-12-02",
+    date: "—",
     isDemo: true,
   },
   {
     no: 1,
     category: "납품 안내",
     title: "[예시] 제품 출고 및 납기 문의 안내",
-    date: "2025-11-20",
+    date: "—",
     isDemo: true,
   },
 ];
@@ -274,12 +275,8 @@ export const notices: NoticePost[] = [
 
 export const ui = {
   home: "홈",
-  more: "더보기",
-  viewMore: "자세히 보기",
   demoBadge: "데모",
-  demoPost: "데모 게시물",
-  demoPostNotice:
-    "위 목록은 게시판 레이아웃 확인을 위한 예시 게시물입니다. 실제 공지가 아니며, 실제 게시 시 [예시] 표시를 제거하고 회사가 확인한 사실로 교체합니다.",
+  demoPostNotice: "위 목록은 게시판 구성 확인을 위한 예시 게시물이며, 실제 공지가 아닙니다.",
   noticeTitle: "공지사항",
   noticeCols: {
     no: "번호",
@@ -299,7 +296,7 @@ export const ui = {
   openMenu: "메뉴 열기",
   mainBanner: {
     label: "메인 배너",
-    goTo: "번째 배너로 이동",
+    goTo: "번 배너로 이동",
     prev: "이전 배너",
     next: "다음 배너",
     pause: "자동 전환 멈춤",

@@ -1,7 +1,7 @@
 import Reveal from "../../components/Reveal";
 import PageHero from "../../components/PageHero";
 import CtaBanner from "../../components/CtaBanner";
-import { NoteBox, Section } from "../../components/PageBlocks";
+import { Section } from "../../components/PageBlocks";
 import { ui } from "../../data/site";
 import { supportNotice as d } from "../../data/support";
 
@@ -11,16 +11,9 @@ export default function SupportNotice() {
       <PageHero eyebrow="고객지원 · 공지사항" title={d.hero.title} sub={d.hero.sub} />
 
       <Section tone="paper" eyebrow="Notice" heading="공지사항" lead={d.intro}>
-        {/* 현재 상태 — 등록된 공지 없음 */}
+        {/* 게시 예시 목록 — 실제 공지가 아니며, 등록된 공지가 없다는 안내를 상단 문구로 통합 */}
         <Reveal>
-          <NoteBox className="mt-10">
-            <p className="text-[0.9063rem] leading-[1.8] text-ink/85">{d.emptyState}</p>
-          </NoteBox>
-        </Reveal>
-
-        {/* 게시 예시 목록 — 실제 공지가 아님 */}
-        <Reveal delay={60}>
-          <div className="mt-12">
+          <div className="mt-10">
             <div className="flex flex-wrap items-center gap-3">
               <h3 className="text-[1.0625rem] font-bold text-ink">게시 예시</h3>
               <span
@@ -30,19 +23,21 @@ export default function SupportNotice() {
                 {ui.demoBadge}
               </span>
             </div>
-            <p className="mt-2 text-[0.8438rem] leading-[1.7] text-muted">{d.exampleNote}</p>
+            <p className="mt-2 text-[0.8438rem] leading-[1.7] text-muted">
+              {d.emptyState} {d.exampleNote}
+            </p>
 
             <div className="mt-6 overflow-x-auto">
               <table className="w-full min-w-[560px] border-collapse text-left">
                 <thead>
                   <tr className="border-y border-line-strong bg-surface">
-                    <th className="px-4 py-3 text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
+                    <th scope="col" className="px-4 py-3 text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
                       카테고리
                     </th>
-                    <th className="px-4 py-3 text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
+                    <th scope="col" className="px-4 py-3 text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
                       제목
                     </th>
-                    <th className="px-4 py-3 text-right text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
+                    <th scope="col" className="px-4 py-3 text-right text-[0.75rem] font-semibold tracking-[0.06em] text-muted">
                       등록일
                     </th>
                   </tr>

@@ -39,7 +39,12 @@ const formFields: DemoFormField[] = [
   { id: "name", label: "이름", required: true },
   { id: "phone", label: "연락처", required: true, type: "tel" },
   { id: "product", label: "제품명", required: true },
-  { id: "model", label: "모델명", required: true, placeholder: "모르면 “확인 중”으로 입력 후 사진 첨부 안내" },
+  {
+    id: "model",
+    label: "모델명",
+    required: true,
+    placeholder: "모델명을 모르시는 경우 “확인 중”으로 입력해 주세요",
+  },
   { id: "serial", label: "시리얼번호", placeholder: "가능한 경우 입력" },
   { id: "site", label: "설치 또는 사용 현장", required: true },
   { id: "symptom", label: "증상과 오류 코드", required: true, type: "textarea" },

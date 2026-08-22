@@ -25,13 +25,14 @@ export function MainBanner() {
     setIndex(((next % bannerSlides.length) + bannerSlides.length) % bannerSlides.length);
   }, []);
 
+  // index를 의존성에 두어 수동 이동(인디케이터·이전·다음) 직후 6초 타이머가 다시 시작되게 한다.
   useEffect(() => {
     if (!playing) return;
     const id = window.setInterval(() => {
       setIndex((p) => (p + 1) % bannerSlides.length);
     }, ROTATE_MS);
     return () => window.clearInterval(id);
-  }, [playing]);
+  }, [playing, index]);
 
   const slide = bannerSlides[index];
 

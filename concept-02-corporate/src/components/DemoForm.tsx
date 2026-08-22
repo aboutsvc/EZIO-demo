@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ui } from "../data/site";
 
@@ -89,8 +89,15 @@ export function SuccessPanel({
   followCtas: readonly { label: string; path: string }[];
   onReset: () => void;
 }) {
+  // 완료 시 제목으로 포커스를 옮겨 스크린리더에 결과를 전달
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
+
   return (
-    <div className="flex min-h-[420px] flex-col items-start justify-center">
+    <div className="flex min-h-[420px] flex-col items-start justify-center" role="status">
       <span className="flex h-12 w-12 items-center justify-center border border-brand bg-brand-soft">
         <svg
           viewBox="0 0 24 24"
@@ -103,7 +110,9 @@ export function SuccessPanel({
           <path d="M4 12.5l5 5L20 7" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
-      <h3 className="mt-6 text-[1.375rem] font-bold text-ink">{title}</h3>
+      <h3 ref={titleRef} tabIndex={-1} className="mt-6 text-[1.375rem] font-bold text-ink outline-none">
+        {title}
+      </h3>
       <p className="mt-2 text-[0.875rem] font-semibold text-brand">{ui.demoSubmitSuffix}</p>
       <p className="mt-3 max-w-xl text-[0.9375rem] leading-[1.8] text-muted">{body}</p>
       {safetyNote && (

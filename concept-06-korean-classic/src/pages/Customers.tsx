@@ -103,7 +103,7 @@ export function Customers() {
               <th scope="row" className="whitespace-normal">
                 {row.area}
               </th>
-              <td className="leading-relaxed text-ink-2">“{row.desc}”</td>
+              <td className="leading-relaxed text-ink-2">{row.desc}</td>
             </tr>
           ))}
         </tbody>

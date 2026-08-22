@@ -9,8 +9,12 @@ export default function Careers() {
     <>
       <PageHero eyebrow="채용정보" title={d.hero.title} sub={d.hero.sub}>
         <div className="mt-8">
-          <a
-            href={d.hero.cta.anchor}
+          {/* HashRouter 환경에서 href="#..." 는 경로로 해석되므로 버튼 + 스크롤로 처리 */}
+          <button
+            type="button"
+            onClick={() =>
+              document.getElementById(d.hero.cta.targetId)?.scrollIntoView({ behavior: "smooth" })
+            }
             className="inline-flex items-center gap-2 border border-white/35 px-6 py-3 text-[0.875rem] font-semibold text-white transition-colors duration-150 hover:bg-white hover:text-navy"
             style={{ borderRadius: "3px" }}
           >
@@ -18,7 +22,7 @@ export default function Careers() {
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M7 1v11M3 8l4 4 4-4" stroke="currentColor" strokeWidth="1.6" />
             </svg>
-          </a>
+          </button>
         </div>
       </PageHero>
 

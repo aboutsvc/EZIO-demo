@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import MainBanner from "../components/MainBanner";
 import Scene from "../components/Scene";
 import SectionTitle from "../components/SectionTitle";
-import { entityRoles, productScopeNote } from "../data/content";
+import { entityRoles } from "../data/content";
 
 /**
  * 메인 페이지 — 명세서 홈페이지 8개 섹션을 클래식 한국 기업 홈 문법으로 구성
@@ -97,6 +97,9 @@ const inquiryCards = [
 export function Home() {
   return (
     <>
+      {/* 페이지 대표 제목 — 배너는 h2로 구성되므로 h1은 스크린리더 전용으로 제공 */}
+      <h1 className="sr-only">LS ELECTRIC 제품과 고객 현장을 잇는 EGO</h1>
+
       {/* ── 1. 메인 비주얼 ── */}
       <MainBanner />
 
@@ -192,7 +195,8 @@ export function Home() {
             경우 제조사와 협의합니다. 주문 이후에는 발주와 납기, 출고와 납품 진행을 관리합니다.
           </p>
           <p className="mt-4 max-w-[52rem] border border-line bg-white px-4 py-3 text-[0.8125rem] leading-relaxed text-muted">
-            {productScopeNote}
+            구체적인 취급 제품과 공급 가능 여부는 모델, 사양, 수량과 희망 일정을 확인한 뒤
+            안내드립니다.
           </p>
           <Link to="/support/inquiry" className="btn-blue mt-5 h-11 px-6 text-[0.9375rem]">
             취급 제품 문의하기 <span aria-hidden="true">›</span>

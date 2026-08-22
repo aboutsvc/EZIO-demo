@@ -21,7 +21,8 @@ const acceptableRequests = [
 
 const prepareItems = [
   "회사명, 현장명과 담당자 연락처",
-  "제품명과 제품군 / 모델명",
+  "제품명과 제품군",
+  "모델명",
   "시리얼번호 또는 제조번호",
   "구입·납품 정보 (알고 있는 경우)",
   "설치 또는 사용 현장",
@@ -137,11 +138,11 @@ export function Service() {
               <td className="leading-relaxed text-ink-2">
                 {row.work}
                 <span className="mt-1 block text-[0.8125rem] text-muted lg:hidden">
-                  “{row.guide}”
+                  {row.guide}
                 </span>
               </td>
               <td className="hidden text-[0.875rem] leading-relaxed text-muted lg:table-cell">
-                “{row.guide}”
+                {row.guide}
               </td>
             </tr>
           ))}

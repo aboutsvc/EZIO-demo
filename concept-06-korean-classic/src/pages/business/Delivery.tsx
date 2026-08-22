@@ -134,7 +134,7 @@ export function Delivery() {
               <th scope="row" className="whitespace-normal">
                 {row.step}
               </th>
-              <td className="leading-relaxed text-ink-2">“{row.desc}”</td>
+              <td className="leading-relaxed text-ink-2">{row.desc}</td>
             </tr>
           ))}
         </tbody>
