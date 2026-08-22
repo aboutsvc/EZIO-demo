@@ -1,18 +1,16 @@
 /**
- * CONCEPT 06 — KOREAN CLASSIC / 사이트 구조 · UI 문자열
- * =====================================================
- * `content.ts`(공유 콘텐츠 기준)는 수정하지 않는다. 이 파일은 멀티페이지 구조를 위한
- * **내비게이션 트리 / 화면 라벨 / 데모 게시판 항목**만 정의한다.
- * 컴포넌트 안에서 문자열을 하드코딩하지 않기 위한 concept-local 확장이다.
+ * CONCEPT 06 — KOREAN CLASSIC / 사이트 구조 · UI 문자열 (EGO)
+ * ==========================================================
+ * 내비게이션 트리 / 페이지 메타(서브비주얼·breadcrumb·LNB) / 메인 배너 / 데모 게시판 항목 정의.
+ * 한국어 단일 사이트 — I18n 구조 없이 평문 문자열만 사용한다.
  *
  * ⚠️ 정확성 규칙
- *  - 전화번호 / 팩스 / 이메일을 만들어내지 않는다 → 모든 연락 동선은 온라인 문의 폼으로 수렴.
- *  - 게시판 항목은 중립적 제목 + "데모 게시물" 표기. 실제 뉴스처럼 보이는 제목 금지.
- *  - 파트너 등급 표현 / 고객 실명 / 미확인 수치 금지.
+ *  - 전화번호 / 팩스 / 이메일 / 주소를 만들어내지 않는다 → 모든 연락 동선은 온라인 데모 폼으로 수렴.
+ *  - 게시판 항목은 명세서의 "[예시]" 공지 5건만 사용하고 각 행에 데모 배지를 표기한다.
+ *  - 파트너 등급 표현 / 미확인 수치 금지.
  */
 
-import type { I18n } from "./content";
-import { brandMessages, positioning, lsElectricArea } from "./content";
+import { company } from "./content";
 
 /* ──────────────────────────────────────────────
  * 1. 내비게이션 트리 (GNB → 드롭다운 / 서브페이지 LNB 공용)
@@ -20,49 +18,55 @@ import { brandMessages, positioning, lsElectricArea } from "./content";
 
 export interface NavChild {
   path: string;
-  label: I18n;
+  label: string;
 }
 
 export interface NavSection {
-  /** GNB 최상위 경로 (드롭다운 첫 항목으로 이동) */
+  /** GNB 최상위 경로 (드롭다운 첫 항목 또는 단일 페이지로 이동) */
   path: string;
-  label: I18n;
+  label: string;
   children: NavChild[];
 }
 
 export const navSections: NavSection[] = [
   {
-    path: "/about/greeting",
-    label: { ko: "회사소개", en: "Company" },
+    path: "/about/intro",
+    label: "회사소개",
     children: [
-      { path: "/about/greeting", label: { ko: "인사말", en: "CEO Greeting" } },
-      { path: "/about/overview", label: { ko: "회사개요", en: "Company Overview" } },
-      { path: "/about/history", label: { ko: "연혁", en: "History" } },
-      { path: "/about/location", label: { ko: "오시는길", en: "Location" } },
+      { path: "/about/intro", label: "EGO 소개" },
+      { path: "/about/vision", label: "비전 및 경영철학" },
+      { path: "/about/executives", label: "경영진 소개" },
+      { path: "/about/workplace", label: "사업장 소개" },
     ],
   },
   {
-    path: "/business",
-    label: { ko: "사업분야", en: "Business" },
-    children: [{ path: "/business", label: { ko: "사업분야 안내", en: "Business Areas" } }],
-  },
-  {
-    path: "/products",
-    label: { ko: "제품소개", en: "Products" },
-    children: [{ path: "/products", label: { ko: "제품 카테고리", en: "Product Categories" } }],
-  },
-  {
-    path: "/works",
-    label: { ko: "수행실적", en: "Projects" },
-    children: [{ path: "/works", label: { ko: "주요 수행실적", en: "Featured Projects" } }],
-  },
-  {
-    path: "/support",
-    label: { ko: "고객센터", en: "Support" },
+    path: "/business/supply",
+    label: "사업영역",
     children: [
-      { path: "/support", label: { ko: "공지사항", en: "Notice" } },
-      { path: "/support#inquiry", label: { ko: "온라인 문의", en: "Online Inquiry" } },
+      { path: "/business/supply", label: "LS ELECTRIC 제품 공급" },
+      { path: "/business/delivery", label: "납품 및 현장 대응" },
+      { path: "/business/service", label: "기술지원 및 A/S" },
     ],
+  },
+  {
+    path: "/customers",
+    label: "주요 고객·수행실적",
+    children: [],
+  },
+  {
+    path: "/support/inquiry",
+    label: "고객지원",
+    children: [
+      { path: "/support/inquiry", label: "제품·견적 문의" },
+      { path: "/support/as", label: "A/S 접수" },
+      { path: "/support/resources", label: "기술자료·카탈로그" },
+      { path: "/support/notice", label: "공지사항" },
+    ],
+  },
+  {
+    path: "/careers",
+    label: "채용정보",
+    children: [],
   },
 ];
 
@@ -83,78 +87,90 @@ export type SceneKey =
 export interface PageMeta {
   /** LNB/브레드크럼에 쓰는 상위 섹션 index (navSections 기준) */
   sectionIndex: number;
-  title: I18n;
-  /** 서브비주얼 밴드의 보조 카피 */
-  lead: I18n;
+  title: string;
+  /** 서브비주얼 밴드의 보조 카피 — 명세서 각 페이지 "메인 영역" 보조 문구 */
+  lead: string;
   scene: SceneKey;
 }
 
 export const pageMeta: Record<string, PageMeta> = {
-  "/about/greeting": {
+  "/about/intro": {
     sectionIndex: 0,
-    title: { ko: "인사말", en: "CEO Greeting" },
-    lead: {
-      ko: "신뢰를 우선하는 산업 전력 파트너",
-      en: "An industrial power partner built on trust",
-    },
+    title: "EGO 소개",
+    lead: "EGO는 LS ELECTRIC 제품의 상담·견적·공급부터 납품 관리, 현장 요청과 제조사 연계 A/S까지 고객 접점을 담당합니다.",
     scene: "EngineerAtPanel",
   },
-  "/about/overview": {
+  "/about/vision": {
     sectionIndex: 0,
-    title: { ko: "회사개요", en: "Company Overview" },
-    lead: {
-      ko: "확인된 기업 정보만을 게재합니다",
-      en: "Only verified company information is published",
-    },
-    scene: "PlantAerial",
+    title: "비전 및 경영철학",
+    lead: "고객의 요구를 정확히 확인하고, 제품 공급의 각 단계와 후속 지원을 꾸준히 연결하는 것이 EGO의 경영 원칙입니다.",
+    scene: "HmiScreen",
   },
-  "/about/history": {
+  "/about/executives": {
     sectionIndex: 0,
-    title: { ko: "연혁", en: "History" },
-    lead: { ko: "이지오가 걸어온 길", en: "The path EZIO has taken" },
-    scene: "SubstationYard",
-  },
-  "/about/location": {
-    sectionIndex: 0,
-    title: { ko: "오시는길", en: "Location" },
-    lead: { ko: "찾아오시는 길을 안내합니다", en: "How to find our office" },
-    scene: "PlantAerial",
-  },
-  "/business": {
-    sectionIndex: 1,
-    title: { ko: "사업분야", en: "Business Areas" },
-    lead: {
-      ko: "전력 배전 · 보호 · 감시 · 자동화 · 엔지니어링",
-      en: "Distribution · Protection · Monitoring · Automation · Engineering",
-    },
-    scene: "SwitchgearRoom",
-  },
-  "/products": {
-    sectionIndex: 2,
-    title: { ko: "제품소개", en: "Products" },
-    lead: {
-      ko: "현장에 적합한 전력·자동화 제품 구성",
-      en: "Power & automation products configured for the site",
-    },
-    scene: "RelayPanel",
-  },
-  "/works": {
-    sectionIndex: 3,
-    title: { ko: "수행실적", en: "Projects" },
-    lead: {
-      ko: "현장에서 검증된 전력 감시 시스템 구축 경험",
-      en: "Field-proven power monitoring system experience",
-    },
+    title: "경영진 소개",
+    lead: "EGO의 경영진은 고객 요청을 정확히 듣고 제품 공급과 후속 대응의 각 단계를 책임 있게 관리하는 회사를 만들어갑니다.",
     scene: "ControlRoom",
   },
-  "/support": {
-    sectionIndex: 4,
-    title: { ko: "고객센터", en: "Customer Support" },
-    lead: {
-      ko: "문의사항은 온라인 문의 폼으로 접수해 주십시오",
-      en: "Please submit your inquiry through the online form",
-    },
+  "/about/workplace": {
+    sectionIndex: 0,
+    title: "사업장 소개",
+    lead: "방문 전 담당자와 일정 및 방문 목적을 확인해 주세요. 정확한 위치와 연락 방법을 안내드립니다.",
+    scene: "PlantAerial",
+  },
+  "/business/supply": {
+    sectionIndex: 1,
+    title: "LS ELECTRIC 제품 공급",
+    lead: "사용 목적과 요구 사양을 확인한 뒤 제품 검토, 견적, 주문, 발주, 납기와 납품 과정을 안내합니다.",
+    scene: "SwitchgearRoom",
+  },
+  "/business/delivery": {
+    sectionIndex: 1,
+    title: "납품 및 현장 대응",
+    lead: "제품, 수량, 일정과 장소를 확인하고 납품 전후의 제품 관련 요청을 고객사와 제조사 사이에서 연결합니다.",
+    scene: "SubstationYard",
+  },
+  "/business/service": {
+    sectionIndex: 1,
+    title: "기술지원 및 A/S",
+    lead: "제품 정보와 증상을 확인한 뒤 초기 대응을 안내하고, 필요한 경우 제조사 기술지원, 수리 또는 교체 협의를 지원합니다.",
+    scene: "RelayPanel",
+  },
+  "/customers": {
+    sectionIndex: 2,
+    title: "주요 고객·수행실적",
+    lead: "EGO는 LS ELECTRIC 제품의 공급 과정과 현장 요청, 제품 관련 후속 지원을 고객의 접점에서 관리해 왔습니다.",
+    scene: "RefineryDusk",
+  },
+  "/support/inquiry": {
+    sectionIndex: 3,
+    title: "제품·견적 문의",
+    lead: "필요한 제품, 사양, 수량과 희망 일정을 알려주세요. 확인 후 취급·공급 가능 여부와 견적 절차를 안내드립니다.",
     scene: "HmiScreen",
+  },
+  "/support/as": {
+    sectionIndex: 3,
+    title: "A/S 접수",
+    lead: "제품 정보와 장애 증상을 보내주시면 초기 확인 후 필요한 제조사 또는 관련 기술조직의 지원 절차를 안내드립니다.",
+    scene: "RelayPanel",
+  },
+  "/support/resources": {
+    sectionIndex: 3,
+    title: "기술자료·카탈로그",
+    lead: "제품 검토와 사용에 필요한 공식 카탈로그, 매뉴얼, 사양서와 관련 문서를 확인하세요.",
+    scene: "ControlRoom",
+  },
+  "/support/notice": {
+    sectionIndex: 3,
+    title: "공지사항",
+    lead: "EGO의 운영, 고객지원, 자료와 주요 변경사항을 안내드립니다.",
+    scene: "PlantAerial",
+  },
+  "/careers": {
+    sectionIndex: 4,
+    title: "채용정보",
+    lead: "EGO는 고객의 요구를 세심하게 듣고, 제품 공급과 현장 지원의 각 단계를 끝까지 확인하는 동료를 찾습니다.",
+    scene: "EngineerAtPanel",
   },
 };
 
@@ -164,292 +180,139 @@ export const pageMeta: Record<string, PageMeta> = {
 
 export interface BannerSlide {
   id: string;
-  eyebrow: I18n;
-  headline: I18n;
-  sub: I18n;
-  cta: { label: I18n; to: string };
+  eyebrow: string;
+  headline: string;
+  sub: string;
+  primary: { label: string; to: string };
+  secondary?: { label: string; to: string };
   scene: SceneKey;
 }
 
 export const bannerSlides: BannerSlide[] = [
   {
     id: "main",
-    eyebrow: positioning.primary,
-    headline: brandMessages.corporate.sub,
-    sub: positioning.supporting,
-    cta: { label: { ko: "사업분야 보기", en: "View Business Areas" }, to: "/business" },
+    eyebrow: company.nameMeaning,
+    headline: company.slogan,
+    sub: "고객이 필요한 제품을 정확히 확인하고, 견적과 발주, 납품 관리까지 이어갑니다. 납품 이후의 제품 관련 요청과 장애도 접수해 필요한 제조사 지원을 연결합니다.",
+    primary: { label: "제품·견적 문의", to: "/support/inquiry" },
+    secondary: { label: "EGO의 역할 알아보기", to: "/about/intro" },
     scene: "RefineryDusk",
   },
   {
-    id: "products",
-    eyebrow: lsElectricArea.eyebrow,
-    headline: lsElectricArea.heading,
-    sub: lsElectricArea.body,
-    cta: { label: { ko: "제품소개 보기", en: "View Products" }, to: "/products" },
+    id: "business",
+    eyebrow: "EGO의 사업영역",
+    headline: "필요한 제품을 확인하고,\n공급 과정을 관리하며, 후속 요청에 대응합니다",
+    sub: "EGO의 업무는 제품 공급, 납품 및 현장 대응, 기술지원과 A/S의 세 영역으로 이어집니다.",
+    primary: { label: "사업영역 자세히 보기", to: "/business/supply" },
     scene: "SwitchgearRoom",
   },
   {
-    id: "monitoring",
-    eyebrow: { ko: "전력 감시 · 자동화", en: "Monitoring & Automation" },
-    headline: {
-      ko: "현장의 전력을 한 화면에서 감시합니다",
-      en: "Site power, monitored on a single screen",
-    },
-    sub: {
-      ko: "계측 · 보호 · 통신 · HMI를 하나의 감시 체계로 통합합니다.",
-      en: "Measurement, protection, communication and HMI integrated into one monitoring system.",
-    },
-    cta: { label: { ko: "수행실적 보기", en: "View Projects" }, to: "/works" },
+    id: "service",
+    eyebrow: "기술지원 및 A/S",
+    headline: "제품 관련 문의와 장애를 접수하고\n필요한 지원을 연결합니다",
+    sub: "제품 정보와 증상을 확인한 뒤 초기 대응을 안내하고, 필요한 경우 제조사 기술지원, 수리 또는 교체 협의를 지원합니다.",
+    primary: { label: "A/S 접수", to: "/support/as" },
     scene: "ControlRoom",
   },
 ];
 
 /* ──────────────────────────────────────────────
- * 4. 공지사항 — 데모 게시물 (실제 공지 아님)
- *    실제 뉴스처럼 읽히는 제목을 만들지 않는다. 각 행에 데모 배지를 표기한다.
+ * 4. 공지사항 — 명세서의 "[예시]" 공지 5건 (실제 공지 아님)
+ *    각 행에 데모 배지를 표기하고 목록 하단에 데모 고지를 유지한다.
+ *    날짜는 게시판 레이아웃 확인용 데모 표기이다.
  * ────────────────────────────────────────────── */
 
 export interface NoticePost {
   no: number;
-  title: I18n;
+  category: string;
+  title: string;
   date: string;
   isDemo: true;
 }
 
 export const notices: NoticePost[] = [
   {
+    no: 5,
+    category: "운영 안내",
+    title: "[예시] 연휴 기간 고객지원 운영 안내",
+    date: "2026-01-12",
+    isDemo: true,
+  },
+  {
     no: 4,
-    title: { ko: "홈페이지 데모 버전을 공개합니다", en: "Website demo version published" },
+    category: "고객지원",
+    title: "[예시] 대표 전화번호 및 문의 채널 변경 안내",
     date: "2026-01-05",
     isDemo: true,
   },
   {
     no: 3,
-    title: {
-      ko: "온라인 문의 접수 안내 (데모 폼)",
-      en: "Guide to online inquiry submission (demo form)",
-    },
+    category: "제품·자료",
+    title: "[예시] LS ELECTRIC 공식 카탈로그 업데이트 안내",
     date: "2025-12-18",
     isDemo: true,
   },
   {
     no: 2,
-    title: {
-      ko: "회사소개 자료는 준비 중입니다",
-      en: "Company profile materials are in preparation",
-    },
+    category: "고객지원",
+    title: "[예시] A/S 접수 시 필수 정보 안내",
     date: "2025-12-02",
     isDemo: true,
   },
   {
     no: 1,
-    title: {
-      ko: "게시판 샘플 항목입니다",
-      en: "This is a sample board entry",
-    },
+    category: "납품 안내",
+    title: "[예시] 제품 출고 및 납기 문의 안내",
     date: "2025-11-20",
     isDemo: true,
   },
 ];
 
 /* ──────────────────────────────────────────────
- * 5. Power Flow 그룹 라벨 (content.ts 의 FlowNode.group 표시용)
- * ────────────────────────────────────────────── */
-
-export const flowGroupLabels: Record<
-  "source" | "distribution" | "measurement" | "network" | "monitoring",
-  I18n
-> = {
-  source: { ko: "수전", en: "Incoming" },
-  distribution: { ko: "배전", en: "Distribution" },
-  measurement: { ko: "계측 · 보호", en: "Measurement" },
-  network: { ko: "네트워크", en: "Network" },
-  monitoring: { ko: "감시", en: "Monitoring" },
-};
-
-export const flowGroupOrder = [
-  "source",
-  "distribution",
-  "measurement",
-  "network",
-  "monitoring",
-] as const;
-
-/* ──────────────────────────────────────────────
- * 6. UI 라벨 (화면 문구 — 컴포넌트 하드코딩 방지)
+ * 5. UI 라벨 (화면 문구 — 컴포넌트 하드코딩 방지)
  * ────────────────────────────────────────────── */
 
 export const ui = {
-  home: { ko: "홈", en: "Home" },
-  langKo: { ko: "한국어", en: "Korean" },
-  more: { ko: "더보기", en: "More" },
-  viewMore: { ko: "자세히 보기", en: "View More" },
-  demoBadge: { ko: "데모", en: "DEMO" },
-  demoPost: { ko: "데모 게시물", en: "Demo post" },
-  demoPostNotice: {
-    ko: "위 목록은 게시판 레이아웃 확인을 위한 데모 게시물입니다. 실제 공지가 아닙니다.",
-    en: "The list above consists of demo posts for board layout purposes only — not actual notices.",
-  },
-  noticeTitle: { ko: "공지사항", en: "Notice" },
+  home: "홈",
+  more: "더보기",
+  viewMore: "자세히 보기",
+  demoBadge: "데모",
+  demoPost: "데모 게시물",
+  demoPostNotice:
+    "위 목록은 게시판 레이아웃 확인을 위한 예시 게시물입니다. 실제 공지가 아니며, 실제 게시 시 [예시] 표시를 제거하고 회사가 확인한 사실로 교체합니다.",
+  noticeTitle: "공지사항",
   noticeCols: {
-    no: { ko: "번호", en: "No." },
-    title: { ko: "제목", en: "Title" },
-    date: { ko: "등록일", en: "Date" },
+    no: "번호",
+    category: "카테고리",
+    title: "제목",
+    date: "등록일",
   },
   quick: {
-    label: { ko: "빠른 메뉴", en: "Quick Menu" },
-    inquiry: { ko: "문의하기", en: "Inquiry" },
-    location: { ko: "오시는길", en: "Location" },
-    top: { ko: "TOP", en: "TOP" },
+    label: "빠른 메뉴",
+    inquiry: "제품·견적",
+    as: "A/S 접수",
+    workplace: "사업장",
+    top: "TOP",
   },
-  menu: { ko: "메뉴", en: "Menu" },
-  closeMenu: { ko: "메뉴 닫기", en: "Close menu" },
-  openMenu: { ko: "메뉴 열기", en: "Open menu" },
+  menu: "메뉴",
+  closeMenu: "메뉴 닫기",
+  openMenu: "메뉴 열기",
   mainBanner: {
-    label: { ko: "메인 배너", en: "Main banner" },
-    goTo: { ko: "번째 배너로 이동", en: "Go to slide" },
-    prev: { ko: "이전 배너", en: "Previous slide" },
-    next: { ko: "다음 배너", en: "Next slide" },
-    pause: { ko: "자동 전환 멈춤", en: "Pause auto-rotation" },
-    play: { ko: "자동 전환 시작", en: "Start auto-rotation" },
+    label: "메인 배너",
+    goTo: "번째 배너로 이동",
+    prev: "이전 배너",
+    next: "다음 배너",
+    pause: "자동 전환 멈춤",
+    play: "자동 전환 시작",
   },
-  main: {
-    aboutBannerTitle: { ko: "회사소개", en: "About EZIO" },
-    aboutBannerBody: {
-      ko: "이지오는 산업 플랜트와 대형 사업장의 전력 인프라를 연결하는 B2B 전력 솔루션 기업입니다.",
-      en: "EZIO is a B2B power solution company connecting the power infrastructure of industrial plants and large-scale facilities.",
-    },
-    aboutBannerCta: { ko: "CEO 인사말 보기", en: "Read the CEO Greeting" },
-    businessTitle: { ko: "사업분야", en: "Business Areas" },
-    businessMore: { ko: "사업분야 전체보기", en: "View all business areas" },
-    inquiryTitle: { ko: "프로젝트 문의", en: "Project Inquiry" },
-    inquiryBody: {
-      ko: "프로젝트 상담 · 제품 정보 요청은 온라인 문의 폼으로 접수해 주십시오. 담당자가 확인 후 회신드립니다.",
-      en: "Please submit project consultations and product information requests through the online inquiry form.",
-    },
-    inquiryCta: { ko: "온라인 문의", en: "Online Inquiry" },
-    inquiryNote: {
-      ko: "※ 데모 사이트로 대표번호는 표기하지 않습니다.",
-      en: "※ This is a demo site; no representative phone number is listed.",
-    },
-    worksTitle: { ko: "주요 수행실적", en: "Featured Project" },
-    flowTitle: { ko: "전력 인프라 흐름", en: "Power Infrastructure Flow" },
-    flowBody: {
-      ko: "전원 인입에서 감시 대시보드까지 — 현장 전력 흐름의 각 단계를 이지오가 연결합니다.",
-      en: "From incoming power to the monitoring dashboard — EZIO connects every stage of the site power flow.",
-    },
-  },
-  about: {
-    greetingHeading: { ko: "CEO 인사말", en: "CEO Greeting" },
-    greetingSign: { ko: "주식회사 이지오 대표이사", en: "CEO, EZIO" },
-    placeholderNote: {
-      ko: "본 인사말은 데모용 문구입니다. 실제 대표이사 인사말 수령 후 교체 예정입니다.",
-      en: "This greeting is demo text. It will be replaced upon receipt of the official CEO message.",
-    },
-    overviewHeading: { ko: "회사개요", en: "Company Overview" },
-    overviewNote: {
-      ko: "※ 확인된 정보만 게재합니다. 임직원수 등 미확인 항목은 자료 수령 후 추가됩니다.",
-      en: "※ Only verified information is published. Unverified items such as headcount will be added upon receipt of records.",
-    },
-    rows: {
-      name: { ko: "회사명", en: "Company Name" },
-      ceo: { ko: "대표이사", en: "CEO" },
-      founded: { ko: "설립일", en: "Founded" },
-      address: { ko: "소재지", en: "Address" },
-      business: { ko: "사업분야", en: "Business Area" },
-      revenue: { ko: "매출액", en: "Revenue" },
-    },
-    unconfirmed: { ko: "자료 수령 후 게재 예정", en: "To be published upon receipt of records" },
-    capitalRow: { ko: "자본금 (2022년 기준)", en: "Capital (as of 2022)" },
-    // 확인된 공개정보 — 기준연도 병기 필수
-    capitalValue: { ko: "5,000만원", en: "KRW 50M" },
-    historyHeading: { ko: "연혁", en: "Company History" },
-    historyCols: {
-      year: { ko: "연도", en: "Year" },
-      event: { ko: "내용", en: "Event" },
-    },
-    historyConfirmed: { ko: "확인", en: "Confirmed" },
-    historyPending: { ko: "확인 예정", en: "Pending" },
-    historyNote: {
-      ko: "※ 확인된 연혁만 표기하며, 미확인 항목은 임의로 작성하지 않습니다.",
-      en: "※ Only verified history is listed; unverified entries are not fabricated.",
-    },
-    locationHeading: { ko: "오시는길", en: "Location" },
-    mapPlaceholder: { ko: "지도 API 연동 예정", en: "Map API integration pending" },
-    mapPlaceholderSub: {
-      ko: "실서비스에서는 이 영역에 지도 서비스가 표시됩니다.",
-      en: "In production, a map service will be displayed in this area.",
-    },
-    addressRow: { ko: "주소", en: "Address" },
-    transportRow: { ko: "교통편", en: "Transport" },
-    transportNote: {
-      ko: "상세 교통편 안내는 회사 자료 수령 후 게재 예정입니다.",
-      en: "Detailed transport guidance will be published upon receipt of company records.",
-    },
-    contactRow: { ko: "문의", en: "Contact" },
-    contactNote: {
-      ko: "대표번호 대신 온라인 문의 폼으로 접수해 주십시오.",
-      en: "Please use the online inquiry form instead of a phone number.",
-    },
-  },
-  business: {
-    heading: { ko: "사업분야 안내", en: "Business Areas" },
-    itemsLabel: { ko: "주요 취급 항목", en: "Key Items" },
-    lsHeading: { ko: "취급 제품 영역", en: "Product Areas Handled" },
-    industriesHeading: { ko: "적용 산업", en: "Industries Served" },
-  },
-  products: {
-    heading: { ko: "제품 카테고리", en: "Product Categories" },
-    catalogBtn: { ko: "카탈로그 (준비중)", en: "Catalog (Not Available)" },
-    catalogTip: {
-      ko: "데모 사이트 — 실제 카탈로그 파일이 없습니다.",
-      en: "Demo site — no actual catalog file is available.",
-    },
-    demoScope: {
-      ko: "※ 아래 제품 구성은 데모 콘텐츠입니다. 실제 취급 범위는 확정 후 갱신됩니다. 가격 정보는 제공하지 않으며, 사양 확인은 문의 폼을 이용해 주십시오.",
-      en: "※ The product listing below is demo content. Actual scope will be updated once confirmed. No pricing is provided — please use the inquiry form for specifications.",
-    },
-    tableCols: {
-      no: { ko: "No.", en: "No." },
-      item: { ko: "제품", en: "Product" },
-      category: { ko: "카테고리", en: "Category" },
-    },
-  },
-  works: {
-    featuredHeading: { ko: "주요 수행실적", en: "Featured Project" },
-    processHeading: { ko: "프로젝트 수행 프로세스", en: "Project Process" },
-    capabilityHeading: { ko: "기술 역량", en: "Technical Capability" },
-    rows: {
-      customer: { ko: "고객사", en: "Customer" },
-      industry: { ko: "산업", en: "Industry" },
-      location: { ko: "위치", en: "Location" },
-      title: { ko: "프로젝트명", en: "Project" },
-      scope: { ko: "수행 범위", en: "Scope" },
-    },
-    customerNote: {
-      ko: "고객사 실명은 공개 동의 확인 전까지 표기하지 않습니다.",
-      en: "The customer name is withheld until disclosure consent is confirmed.",
-    },
-  },
-  support: {
-    noticeHeading: { ko: "공지사항", en: "Notice" },
-    inquiryHeading: { ko: "온라인 문의", en: "Online Inquiry" },
-    submitted: {
-      ko: "문의가 접수되었습니다. (데모 — 실제 전송되지 않습니다)",
-      en: "Your inquiry has been received. (Demo — not actually sent)",
-    },
-    required: { ko: "필수", en: "Required" },
-    select: { ko: "선택해 주세요", en: "Please select" },
-  },
-  footer: {
-    sitemapHeading: { ko: "사이트맵", en: "Sitemap" },
+  form: {
+    required: "필수",
+    select: "선택해 주세요",
+    demoNote: "※ 데모 사이트 — 실제 전송/게시가 아닙니다.",
   },
   notFound: {
-    title: { ko: "페이지를 찾을 수 없습니다", en: "Page Not Found" },
-    body: {
-      ko: "요청하신 페이지가 존재하지 않거나 주소가 변경되었습니다.",
-      en: "The page you requested does not exist or its address has changed.",
-    },
-    home: { ko: "메인으로 이동", en: "Go to Home" },
+    title: "페이지를 찾을 수 없습니다",
+    body: "요청하신 페이지가 존재하지 않거나 주소가 변경되었습니다.",
+    home: "메인으로 이동",
   },
 };

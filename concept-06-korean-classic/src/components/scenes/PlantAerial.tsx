@@ -1,4 +1,4 @@
-// EZIO shared scene artwork — 실제 현장 사진 수령 시 교체 가능한 일러스트레이션
+// Shared scene artwork — 실제 현장 사진 수령 시 교체 가능한 일러스트레이션
 import { useId } from 'react';
 import type { ReactElement } from 'react';
 
